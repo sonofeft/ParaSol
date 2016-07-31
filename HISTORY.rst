@@ -1,4 +1,4 @@
-.. 2016-07-31 sonofeft 5ab21e56765bc5104127111f558520190343f4ba
+.. 2016-07-31 sonofeft d427df69d88ecd0ebf208bbc76ae65d5f707c5ef
    Maintain spacing of "History" and "GitHub Log" titles
 
 History
@@ -6,6 +6,10 @@ History
 
 GitHub Log
 ----------
+
+* Jul 31, 2016
+    - (by: sonofeft) 
+        - Fixing path generation for Linux
 
 * Jul 31, 2016
     - (by: sonofeft) 
