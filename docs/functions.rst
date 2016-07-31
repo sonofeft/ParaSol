@@ -4,7 +4,7 @@
 ParaSol Code Functions
 ======================
 
-.. automodule:: parasol.parasol
+.. automodule:: parasol.parasol_main
    :members:
 
 

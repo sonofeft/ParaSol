@@ -232,7 +232,8 @@ class ParametricSoln(object):
         # make text output file in case's subdirectory
         scriptName =  os.path.split( sys.argv[0] )[-1]
         scriptPath = os.path.abspath(scriptName)[:]
-        newDirPath = os.path.dirname( scriptPath ) + '\\' + scriptName[:-3] + '\\'
+        
+        newDirPath = os.path.join( os.path.dirname( scriptPath ) , scriptName[:-3] )
         print "scriptName:",scriptName
         print "scriptPath:",scriptPath
         print "newDirPath:",newDirPath
@@ -262,11 +263,11 @@ class ParametricSoln(object):
             self.summaryObj = Summary(summaryTitle=subtaskName, subTitle='system')
 
         # may not use it, but make Pickle file name just in case
-        self.pickleFileName = newDirPath + scriptName[:-2] + 'pickle'
+        self.pickleFileName = os.path.join(newDirPath, scriptName[:-2] + 'pickle')
         
         # now make HTML file in original script's directory
-        self.htmlFileName = os.path.dirname( scriptPath ) + \
-                            '\\' + scriptName[:-2] + 'htm'
+        self.htmlFileName = os.path.join( os.path.dirname( scriptPath ),
+                            scriptName[:-2] + 'htm' )
         print 'HTML file:',self.htmlFileName
         
         # if multiple ParametricSoln objects, use same htmlFile
@@ -315,8 +316,8 @@ class ParametricSoln(object):
             
             self.xlSheetD = {}  # make sure no sheet name duplicates
             
-            self.xlDocName = os.path.dirname( scriptPath ) + \
-                            '\\' + scriptName[:-2] + 'xls'
+            self.xlDocName = os.path.join( os.path.dirname( scriptPath ),
+                            scriptName[:-2] + 'xls')
                                 
             self.xlSigText = self.subtaskName + '\rParametricSoln v'+getVersion() +\
                 '\rby: '+self.author +'\r' + time.strftime('%B %d, %Y') +\
@@ -332,8 +333,8 @@ class ParametricSoln(object):
                 if self.userOptions.show:
                     self.pptDoc.show()
                     
-            self.pptDocName = os.path.dirname( scriptPath ) + \
-                            '\\' + scriptName[:-2] + 'ppt'
+            self.pptDocName = os.path.join( os.path.dirname( scriptPath ),
+                            scriptName[:-2] + 'ppt')
                                 
             pptText = self.subtaskName + '\rParametricSoln v'+getVersion() +\
                 '\rby: '+self.author +'\r' + time.strftime('%B %d, %Y')
@@ -351,8 +352,8 @@ class ParametricSoln(object):
                 else:
                     self.wordDoc.setFastOptions()
                 
-            self.wordDocName = os.path.dirname( scriptPath ) + \
-                            '\\' + scriptName[:-2] + 'doc'
+            self.wordDocName = os.path.join(os.path.dirname( scriptPath ),
+                            scriptName[:-2] + 'doc')
                                 
             self.wordDoc.addText('   ')
             tableStr = [(self.taskName,),(self.subtaskName, 'ParametricSoln v'+getVersion()),

@@ -32,7 +32,7 @@ if here not in sys.path[:2]:
 if up_one not in sys.path[:2]:
     sys.path.insert(0, up_one)
 
-from parasol.parasol import ParametricSoln
+from parasol.parasol_main import ParametricSoln
 
 class MyTest(unittest.TestCase):
 

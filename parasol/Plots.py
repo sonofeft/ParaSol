@@ -145,7 +145,8 @@ def _makeSensitivityPlot(PS,
         hspace = 0.4
         
     dvs = '_'.join(desVars)
-    filename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_sens_'+figureOfMerit+'_vs_'+dvs+'.png'
+    filename = os.path.join( PS.outputPath,
+               PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_sens_'+figureOfMerit+'_vs_'+dvs+'.png' )
     print "building %i x %i sensitivity plot %s"%(nrows,ncols, os.path.split(filename)[-1] )
     
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
@@ -273,7 +274,8 @@ def _makeSensitivityPlot(PS,
 
     
         # make csv file
-        csvfilename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_sens_'+figureOfMerit+'_vs_'+desVar+'.csv'
+        csvfilename = os.path.join( PS.outputPath,
+                      PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_sens_'+figureOfMerit+'_vs_'+desVar+'.csv')
         print "saving data to CSV file",os.path.split(csvfilename)[-1] 
         csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
     
@@ -433,7 +435,8 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
     else:
         fileNamePart = desVar + '_' + xResultVar
         
-    filename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +'_'+ '_'.join(sysParamList) +'_vs_'+fileNamePart+'.png'
+    filename = os.path.join( PS.outputPath,
+               PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +'_'+ '_'.join(sysParamList) +'_vs_'+fileNamePart+'.png')
     print "building 2D plot", os.path.split(filename)[-1] 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
         
@@ -623,7 +626,8 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
     __Plots_Cache.restoreParasolState()
     
     # make csv file
-    csvfilename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_'+'_'+sysParam+'_vs_'+fileNamePart+'.csv'
+    csvfilename = os.path.join( PS.outputPath,
+                  PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_'+'_'+sysParam+'_vs_'+fileNamePart+'.csv')
     print "saving data to CSV file",os.path.split(csvfilename)[-1] 
     csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
     
@@ -734,8 +738,9 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
     __Plots_Cache.saveParasolState()
  
         
-    filename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  +  '_'+'_'+sysParam+'_vs_'+\
-               desVars[0]+'_'+desVars[1]+'.png'
+    filename = os.path.join( PS.outputPath, 
+                PS.scriptName[:-3] + '_%i_'%__plotNumber  +  '_'+'_'+sysParam+'_vs_'+\
+                desVars[0]+'_'+desVars[1]+'.png')
     print "building contour plot", os.path.split(filename)[-1] 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
         
@@ -1114,8 +1119,9 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
         yMarkMinL = []
         
     # make csv file
-    csvfilename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  + \
-        '_param_'+sysParam+'_vs_'+fileNamePart+'.csv'
+    csvfilename = os.path.join( PS.outputPath,
+                  PS.scriptName[:-3] + '_%i_'%__plotNumber  + \
+                  '_param_'+sysParam+'_vs_'+fileNamePart+'.csv')
     print "saving data to CSV file",os.path.split(csvfilename)[-1] 
     csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
     
@@ -1128,8 +1134,9 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
     
 
     # set up PNG file
-    filename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +\
-        '_param_'+sysParam+'_vs_'+fileNamePart+'.png'
+    filename = os.path.join( PS.outputPath,
+               PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +\
+               '_param_'+sysParam+'_vs_'+fileNamePart+'.png')
     print "building 2D plot", os.path.split(filename)[-1] 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
         
@@ -1463,8 +1470,9 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
     
     
     fileNamePart = dvNameStr + '_' + xResultVar
-    filename = PS.outputPath + PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +\
-        '_carpet_'+sysParam+'_vs_'+fileNamePart+'.png'
+    filename = os.path.join( PS.outputPath,
+               PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +\
+               '_carpet_'+sysParam+'_vs_'+fileNamePart+'.png' )
     print "building Carpet plot", os.path.split(filename)[-1] 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])            
         
