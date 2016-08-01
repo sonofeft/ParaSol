@@ -15,6 +15,9 @@ Contents:
    :maxdepth: 2
 
    quickstart
+   examples
+   example2
+   example3
    copyright
    authors
    history

@@ -279,8 +279,7 @@ class ParametricSoln(object):
         # ============  if probDesc is input ===================
         # set any variables due to probDesc
         if probDesc:
-            for a in ["subtaskName", "taskName", "author", 
-                "constraintTolerance"]:
+            for a in ["subtaskName", "taskName", "author", "constraintTolerance"]:
                 # if the probDesc attribute exists and has a value, assign it to self
                 if hasattr(probDesc,a) and getattr(probDesc,a):
                     setattr(self, a, getattr(probDesc,a) )
