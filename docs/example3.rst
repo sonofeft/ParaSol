@@ -37,7 +37,7 @@ In this case for example, at each evaluation, the value of "a" is found that res
 "Volume" being 500 in3. 
 
 This effectively changes the problem from being two dimensional in "a" and "b", 
-to being one dimensional minimize problem in "b" only.
+to being a one dimensional minimize problem in "b" only.
 
 The python file is very much like Examples 1 and 2, but now with a feasible pair addition.
 We add a statement to define our feasible pair. 

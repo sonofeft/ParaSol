@@ -38,24 +38,6 @@ After navigating to the directory holding ParaSol source code, do the following:
     
 This will execute the local ``setup.py`` file and insure that the pip-specific commands in ``setup.py`` are run.
 
-Running ParaSol
----------------
-
-After installing with ``pip``, there will be a launch command line program called **parasol** or, on Windows, **parasol.exe**. From a terminal or command prompt window simply type::
-
-    parasol
-
-and ParaSol will start. If not, then there may be an issue with your system path.
-The path for the parasol executable might be something like::
-
-    /usr/local/bin/parasol             (if installed with sudo pip install -e .)
-         or 
-    /home/<user>/.local/bin/parasol    (if installed with pip install -e .)
-         or 
-    C:\Python27\Scripts\parasol.exe    (on Windows)
-
-Make sure your system path includes the above path to **parasol**.
-
 
 .. _internal_pip_error:
 
