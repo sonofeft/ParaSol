@@ -4,7 +4,6 @@
 r"""
 ParaSol (Parametric Solutions) is a python framework in which mathematical models can be investigated parametrically.
 
-<Paragraph description see docstrings at http://www.python.org/dev/peps/pep-0257/>
 Parasol enables easy optimization, sensitivity study, and visualization. 
 The math model can be as big or as small as desired. 
 Output is generated in plain text, HTML, and native Microsoft Suite files (Excel, Word and PowerPoint).
