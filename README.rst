@@ -13,8 +13,9 @@
     :target: https://pypi.python.org/pypi/parasol
 
 
+
 Parasol (Parametric Solutions) Is A Python Framework In Which Mathematical Models Can Be Investigated Parametrically.
-=====================================================================================================================
+
 
 
 See the Code at: `<https://github.com/sonofeft/ParaSol>`_
