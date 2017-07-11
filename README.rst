@@ -35,8 +35,7 @@ Output is generated in plain text, HTML, and (On Windows) native Microsoft Suite
 
 A problem is defined by input and output parameters. 
 Results are presented in a manner that conveys insight into system trends and characteristics. 
-The process of performing an analysis results in an ample assortment of graphs, charts, and images 
-    that display system sensitivities, variations, and characteristics. 
+The process of performing an analysis results in an ample assortment of graphs, charts, and images that display system sensitivities, variations, and characteristics. 
 Barriers to creating these displays have been reduced to single commands in order to facilitate their use.
 
 Parasol has been designed to run best under Microsoft Windows, but also runs under Linux.
