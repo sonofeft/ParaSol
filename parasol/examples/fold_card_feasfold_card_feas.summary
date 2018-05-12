@@ -1,0 +1,74 @@
+------------------------------------------------------------
+Parametric Solutions
+parasol v0.1.11
+contact: C. Taylor, cet@appliedpython.com
+------------------------------------------------------------
+
+Best Box
+   by: Charlie Taylor
+ date: Wednesday April 18, 2018
+
+=============== Design Variables ===============
+ NAME VALUE MINIMUM MAXIMUM DESCRIPTION         
+    b    10       2      10 Height of Box  (in) 
+================================================
+
+============================= Result Variables =============================
+        NAME   VALUE DESCRIPTION                       LOW-LIMIT HIGH-LIMIT 
+           a 7.07107 Base Dimension of Cardboard  (in)        >1        <50 
+            * ----->  (a varies to make Volume = 500 cuin) 
+      Volume     500 Box Volume  (cuin)                      ---        --- 
+ boxSurfArea 332.843 Box Surface Area  (sqin)                ---        --- 
+============================================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: Feasible Optimization
+            
+
+PRIOR TO MINIMIZE OPTIMIZATION
+ParametricSoln: Feasible Optimization
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         b           10            2           10 Height of Box  (in)
+
+ Figure of Merit: Box Surface Area (boxSurfArea) = 332.843 sqin <== Minimize
+============================================================================
+
+
+AFTER MINIMIZE OPTIMIZATION
+ParametricSoln: Feasible Optimization
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         b            5            2           10 Height of Box  (in)
+
+ Figure of Merit: Box Surface Area (boxSurfArea) = 300 sqin <== Minimize
+============================================================================
+
+=============== Design Variables ===============
+ NAME VALUE MINIMUM MAXIMUM DESCRIPTION         
+    b     5       2      10 Height of Box  (in) 
+================================================
+
+============================ Result Variables ============================
+        NAME VALUE DESCRIPTION                       LOW-LIMIT HIGH-LIMIT 
+           a    10 Base Dimension of Cardboard  (in)        >1        <50 
+            * ----->  (a varies to make Volume = 500 cuin) 
+      Volume   500 Box Volume  (cuin)                      ---        --- 
+ boxSurfArea   300 Box Surface Area  (sqin)                ---        --- 
+==========================================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: Feasible Optimization
+            

@@ -1,0 +1,10 @@
+________tk_nosy UNITTEST RUN# 1_________
+
+{Item #1} test_should_always_pass_cleanly, 
+Closing all open files
+------------------------------------------------------------
+Parametric Solutions
+parasol v0.1.12
+contact: C. Taylor, cet@appliedpython.com
+------------------------------------------------------------
+

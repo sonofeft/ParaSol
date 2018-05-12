@@ -1,0 +1,66 @@
+------------------------------------------------------------
+Parametric Solutions
+parasol v0.1.11
+contact: C. Taylor, cet@appliedpython.com
+------------------------------------------------------------
+
+Sample Optimization
+   by: Charlie Taylor
+ date: Wednesday April 18, 2018
+
+
+PRIOR TO MAXIMIZE OPTIMIZATION
+ParametricSoln: Cardboard Box
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         L           12            1           20 Length of Cardboard  (in)
+    WoverL            1         0.05            1 Width/Length of Cardboard
+    HoverW          0.1         0.05         0.45 Height/Width of Box
+
+ Figure of Merit: Box Volume (Volume) = 110.592 cuin <== Maximize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+   boxMass       0.3456 ------------          0.5 Box Mass
+============================================================================
+
+
+AFTER MAXIMIZE OPTIMIZATION
+ParametricSoln: Cardboard Box
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         L      16.3299            1           20 Length of Cardboard  (in)
+    WoverL     0.999999         0.05            1 Width/Length of Cardboard
+    HoverW         0.25         0.05         0.45 Height/Width of Box
+
+ Figure of Merit: Box Volume (Volume) = 272.166 cuin <== Maximize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+   boxMass          0.5 ------------          0.5 Box Mass
+============================================================================
+
+====================== Design Variables ======================
+   NAME    VALUE MINIMUM MAXIMUM DESCRIPTION                  
+ HoverW     0.25    0.05    0.45 Height/Width of Box          
+    thk      0.1    0.02     0.4 Thickness of Cardboard  (in) 
+      L  16.3299       1      20 Length of Cardboard  (in)    
+ WoverL 0.999999    0.05       1 Width/Length of Cardboard    
+==============================================================
+
+=================== Result Variables ====================
+    NAME   VALUE DESCRIPTION        LOW-LIMIT HIGH-LIMIT 
+  Volume 272.166 Box Volume  (cuin)       ---        --- 
+ boxMass     0.5 Box Mass  (lbm)          ---       <0.5 
+=========================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: Cardboard Box
+            

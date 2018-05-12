@@ -43,7 +43,7 @@ def myControlRoutine(PS):
 # need to tell system the name of the control routine
 PS.setControlRoutine(myControlRoutine)
 
-PS.evaluate()
+# PS.evaluate() <-- done in setControlRoutine
 
 
 if 1:

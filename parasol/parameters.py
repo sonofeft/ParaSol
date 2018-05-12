@@ -86,8 +86,8 @@ class MinMaxPair( object ):
 class FeasiblePair( object ):
     '''
        A FeasiblePair is a paired InputParam and OutputParam 
-       where the val property of the InputParam is found
-       such that the val property of the OutputParam is equal to
+       where the val property of the InputParam is found (inpParam.val)
+       such that (outParam.val) is equal to
        the desired feasibleVal for the mathematical model under consideration
        (i.e. as modeled by the function call, functionToCall).
        

@@ -37,6 +37,4 @@ Barriers to creating these displays have been reduced to single commands in orde
 
 Parasol has been designed to run best under Microsoft Windows, but also runs under Linux.
 
-.. todo:: 
-
-  Add support for Libreoffice and OpenOffice on both Linux and Windows
+TODO... Add support for Libreoffice and OpenOffice on both Linux and Windows

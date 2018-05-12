@@ -31,13 +31,13 @@ def myControlRoutine(PS):
     PS["boxSurfArea"] = boxSurfArea
     PS["Volume"] = Volume
 
+PS.makeFeasiblePair( outName="Volume", feasibleVal=500.0, inpName='a')
+
+# PS.evaluate() <-- done in setControlRoutine
 
 # need to tell system the name of the control routine
 PS.setControlRoutine(myControlRoutine)
 
-PS.makeFeasiblePair( outName="Volume", feasibleVal=500.0, inpName='a')
-
-PS.evaluate()
 aInit,bInit = PS("a","b")
 PS.saveFullSummary()
 

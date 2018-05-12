@@ -199,7 +199,7 @@ class ParametricSoln(object):
 
     def __init__(self, subtaskName="simple model", taskName='System Study',
         controlRoutine=None, author="", constraintTolerance=0.001,
-        probDesc=None):
+        probDesc=None, printFilePaths=False):
         """Inits ParametricSoln."""
         
             
@@ -233,13 +233,15 @@ class ParametricSoln(object):
         scriptPath = os.path.abspath(scriptName)[:]
         
         newDirPath = os.path.join( os.path.dirname( scriptPath ) , scriptName[:-3] )
-        print "scriptName:",scriptName
-        print "scriptPath:",scriptPath
-        print "newDirPath:",newDirPath
+        if printFilePaths:
+            print "scriptName:",scriptName
+            print "scriptPath:",scriptPath
+            print "newDirPath:",newDirPath
         
         if not os.path.isdir( newDirPath ):
             os.mkdir( newDirPath )
-            print "created new directory",newDirPath
+            if printFilePaths:
+                print "created new directory",newDirPath
 
         self.scriptName = scriptName
         self.outputPath = newDirPath
@@ -267,7 +269,8 @@ class ParametricSoln(object):
         # now make HTML file in original script's directory
         self.htmlFileName = os.path.join( os.path.dirname( scriptPath ),
                             scriptName[:-2] + 'htm' )
-        print 'HTML file:',self.htmlFileName
+        if printFilePaths:
+            print 'HTML file:',self.htmlFileName
         
         # if multiple ParametricSoln objects, use same htmlFile
         if ParametricSoln.__firstParametricSoln:
@@ -958,7 +961,7 @@ class ParametricSoln(object):
                 
         return vioList
 
-    def firstEvaluateIfReqd(self):
+    def firstEvaluateIfReqd(self): # called by Optimize.optimize
         if self.NumEvaluations==0:
             self.evaluate()
             
@@ -967,26 +970,28 @@ class ParametricSoln(object):
         self.NumEvaluations += 1 #: increment counter for each evaluate call
 
         def paramCallBack():
-            '''specialty parameter callback (feasible and minmax)'''
+            '''special parameter callback (feasible and minmax)'''
             self.controlRoutine(self)
 
         # do minmax params first
         if len( self.minmaxVarList ) > 0:
             for mmv in self.minmaxVarList:
-                mmv.functionToCall = paramCallBack
+                if mmv.functionToCall is None:
+                    mmv.functionToCall = paramCallBack
                 mmv.reCalc() # sets inpParam.val
         
         # now do feasible params
         if len( self.feasibleVarList ) > 0:
             for fv in self.feasibleVarList:
-                fv.functionToCall = paramCallBack
+                if fv.functionToCall is None:
+                    fv.functionToCall = paramCallBack
                 fv.reCalc() # sets inpParam.val
 
         # when done with "special" inputs, do final call to control routine
         self.controlRoutine(self) # call control routine
         
-    def reCalc(self):  # why a synonym for evaluate?  beats me.
-        self.evaluate()
+    #def reCalc(self):  # why a synonym for evaluate?  beats me.
+    #    self.evaluate()
         
     def addAssumption(self, label='generic param'):
         self.summaryObj.assumptions.append( label )
@@ -1247,7 +1252,7 @@ if __name__ == "__main__":  #self test
 
 
         print
-        PS.evaluate()
+        PS.evaluate() # <-- needed since myControlRoutine set with ParametricSoln creation
         #PS.saveShortSummary()
         #PS.saveSummary()
         

@@ -186,7 +186,7 @@ def _makeSensitivityPlot(PS,
         vioDict = {}
         for stepVal in dv.rangeL:
             PS.setDesignVar( desVar, stepVal)
-            #PS.evaluate()
+            #PS.evaluate() <-- called from Plots_Cache IF REQUIRED
             __Plots_Cache.getResults()
             
             vioList = PS.violatesResultConstraint()
@@ -269,7 +269,7 @@ def _makeSensitivityPlot(PS,
     
         # restore original value
         #PS.setDesignVar( desVar, dv.savedVal)
-        #PS.evaluate() # recalc design point from savedVal
+        #PS.evaluate() <-- called from Plots_Cache IF REQUIRED # recalc design point from savedVal
         __Plots_Cache.restoreParasolState()
 
     
@@ -469,7 +469,7 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
     
     for stepVal in dv.rangeL:
         PS.setDesignVar( desVar, stepVal)
-        #PS.evaluate()
+        #PS.evaluate() <-- called from Plots_Cache IF REQUIRED
         __Plots_Cache.getResults()
         x.append(stepVal)
         
@@ -622,7 +622,7 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
     
     # restore original value
     #PS.setDesignVar( desVar, dv.savedVal)
-    #PS.evaluate() # recalc design point from savedVal
+    #PS.evaluate() <-- called from Plots_Cache IF REQUIRED # recalc design point from savedVal
     __Plots_Cache.restoreParasolState()
     
     # make csv file
@@ -780,7 +780,7 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
         for i in range(len(f)):
             PS.setDesignVar( desVars[0], P[i,j] )
             PS.setDesignVar( desVars[1], F[i,j] )
-            #PS.evaluate()
+            #PS.evaluate() <-- called from Plots_Cache IF REQUIRED
             __Plots_Cache.getResults()
             
             # accept either result variables OR native attributes
@@ -915,7 +915,7 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
     # restore original values
     #PS.setDesignVar( desVars[0], dv0.savedVal )
     #PS.setDesignVar( desVars[1], dv1.savedVal )
-    #PS.evaluate() # recalc design point from savedVal
+    #PS.evaluate() <-- called from Plots_Cache IF REQUIRED # recalc design point from savedVal
     __Plots_Cache.restoreParasolState()
     
     if makeHTML:
@@ -1176,7 +1176,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
         
         for stepVal in dv.rangeL:
             PS.setDesignVar( desVar, stepVal)
-            #PS.evaluate()
+            #PS.evaluate() <-- called from Plots_Cache IF REQUIRED
             __Plots_Cache.getResults()
             vioList = PS.violatesResultConstraint()
             
@@ -1389,7 +1389,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
     # restore original value
     #PS.setDesignVar( desVar, dv.savedVal)
     #PS.setDesignVar( paramVar[0], pv.savedVal)
-    #PS.evaluate() # recalc design point from savedVal
+    #PS.evaluate() <-- called from Plots_Cache IF REQUIRED # recalc design point from savedVal
     __Plots_Cache.restoreParasolState()
     
     
@@ -1567,7 +1567,7 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
     #for dv in dvL:
     #    PS.setDesignVar( dv.name, dv.savedVal)
     #
-    #PS.evaluate() # recalc design point from savedVal
+    #PS.evaluate() <-- called from Plots_Cache IF REQUIRED # recalc design point from savedVal
     __Plots_Cache.restoreParasolState()
     
 
