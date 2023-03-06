@@ -667,7 +667,7 @@ class ExcelWrap:
         
         rs = squareUpRS( rs, pad='' )
         
-        ucol, urow = xlChFormula.getNcolNrow( cell=upperLeft)
+        ucol, urow = xlChFormula.getNcol_Nrow( cell=upperLeft)
         lcol = len(rs[0]) + ucol - 1
         lrow = len(rs) + urow - 1
 
@@ -686,7 +686,7 @@ class ExcelWrap:
         
         rs = squareUpRS( rs, pad='' )
         
-        ucol, urow = xlChFormula.getNcolNrow( cell=upperLeft)
+        ucol, urow = xlChFormula.getNcol_Nrow( cell=upperLeft)
         lcol = len(rs[0]) + ucol - 1
         lrow = len(rs) + urow - 1
 

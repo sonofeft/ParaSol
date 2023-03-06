@@ -1,10 +1,12 @@
 import matplotlib
 #matplotlib.use('TKAgg')   # usually the right thing to do
+from matplotlib.ticker import FormatStrFormatter
+from PIL import Image, ImageFont, ImageDraw
 
 import sys, os
 from pylab import *
 import time
-#import Image, ImageDraw, ImageFont
+
 import csv
 import traceback
 from parasol.Plots_Cache import Plots_Cache
@@ -277,7 +279,7 @@ def _makeSensitivityPlot(PS,
         csvfilename = os.path.join( PS.outputPath,
                       PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_sens_'+figureOfMerit+'_vs_'+desVar+'.csv')
         print("saving data to CSV file",os.path.split(csvfilename)[-1]) 
-        csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
+        csvWriter = csv.writer(open(csvfilename, "w"),  dialect='excel')
     
         sumry = PS.getDesVarSummary()
         sp = sumry.split('\n')
@@ -629,7 +631,7 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
     csvfilename = os.path.join( PS.outputPath,
                   PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_'+'_'+sysParam+'_vs_'+fileNamePart+'.csv')
     print("saving data to CSV file",os.path.split(csvfilename)[-1]) 
-    csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
+    csvWriter = csv.writer(open(csvfilename, "w"),  dialect='excel')
     
     sumry = PS.getDesVarSummary(*[desVar])
     sp = sumry.split('\n')
@@ -839,6 +841,7 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
             fontsize=10, fontweight="bold", alpha=0.75)
 
     # do contour last so fill color doesn't get skewed
+    cm = matplotlib.cm
     if hasattr(cm, colorMap):
         myColorMap = getattr(cm, colorMap)
     else:
@@ -1123,7 +1126,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
                   PS.scriptName[:-3] + '_%i_'%__plotNumber  + \
                   '_param_'+sysParam+'_vs_'+fileNamePart+'.csv')
     print("saving data to CSV file",os.path.split(csvfilename)[-1]) 
-    csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
+    csvWriter = csv.writer(open(csvfilename, "w"),  dialect='excel')
     
     sumry = PS.getDesVarSummary(*[desVar, paramVar[0]])
     sp = sumry.split('\n')
@@ -1235,9 +1238,9 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
             lblStr = ''
             di = len(x) / 6
             if reverseLabels:
-                iLabel = (1 + (5-(iL%5))) * di
+                iLabel = int((1 + (5-(iL%5))) * di)
             else:
-                iLabel = (1 + (iL%5)) * di
+                iLabel = int((1 + (iL%5)) * di)
             props = {'ha':'%s'%haLabel, 'va':'%s'%vaLabel, 'color':fmt}
             try:
                 text(x[iLabel], y[iLabel], paramVar[0]+' %g'%pval , props)
@@ -1455,10 +1458,10 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
     
     # make intermediate lists
     dvNameL = [] # list of design variable names
-    dvL = []  # list of design varaible objects
+    dvL = []  # list of design variable objects
     NumDesVar = len( desVarL )
     if NumDesVar > 2:
-        print('For NOW, Carpet plots are limited to 2 design varables')
+        print('For NOW, Carpet plots are limited to 2 design variables')
         return
     
     for row in desVarL:

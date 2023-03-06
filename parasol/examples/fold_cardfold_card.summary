@@ -1,0 +1,82 @@
+------------------------------------------------------------
+Parametric Solutions
+parasol v0.2.1
+contact: C. Taylor, cet@appliedpython.com
+------------------------------------------------------------
+
+Best Box
+   by: Charlie Taylor
+ date: Monday March 06, 2023
+
+
+PRIOR TO MINIMIZE OPTIMIZATION
+ParametricSoln: Two Variable Optimization
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         a           12            5           15 Base Dimension of Cardboard  (in)
+         b            8            2           10 Height of Box  (in)
+
+ Figure of Merit: Box Surface Area (boxSurfArea) = 528 sqin <== Minimize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+    Volume         1152          500 ------------ Box Volume
+============================================================================
+
+
+AFTER MINIMIZE OPTIMIZATION
+ParametricSoln: Two Variable Optimization
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         a      9.99999            5           15 Base Dimension of Cardboard  (in)
+         b      5.00001            2           10 Height of Box  (in)
+
+ Figure of Merit: Box Surface Area (boxSurfArea) = 300 sqin <== Minimize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+    Volume          500          500 ------------ Box Volume
+============================================================================
+
+======================= Design Variables =======================
+ NAME   VALUE MINIMUM MAXIMUM DESCRIPTION                       
+    a 9.99999       5      15 Base Dimension of Cardboard  (in) 
+    b 5.00001       2      10 Height of Box  (in)               
+================================================================
+
+======================= Result Variables ========================
+        NAME VALUE DESCRIPTION              LOW-LIMIT HIGH-LIMIT 
+      Volume   500 Box Volume  (cuin)            >500        --- 
+ boxSurfArea   300 Box Surface Area  (sqin)       ---        --- 
+=================================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: Two Variable Optimization
+            
+======================= Design Variables =======================
+ NAME   VALUE MINIMUM MAXIMUM DESCRIPTION                       
+    a 9.99999       5      15 Base Dimension of Cardboard  (in) 
+    b 5.00001       2      10 Height of Box  (in)               
+================================================================
+
+======================= Result Variables ========================
+        NAME VALUE DESCRIPTION              LOW-LIMIT HIGH-LIMIT 
+      Volume   500 Box Volume  (cuin)            >500        --- 
+ boxSurfArea   300 Box Surface Area  (sqin)       ---        --- 
+=================================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: Two Variable Optimization
+            

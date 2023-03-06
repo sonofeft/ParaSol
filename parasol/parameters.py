@@ -93,7 +93,7 @@ class FeasiblePair( object ):
        
        @note: The InputParam's val property will be found in the range minVal to maxVal
        such that OutputParam.val==feasibleVal when calling functionToCall
-       (i.e. A Feasibilty constraint is applied to the parameter pair).
+       (i.e. A Feasibility constraint is applied to the parameter pair).
        
        @note: It is the users responsibility to assure that InputParam.val is used
        in functionToCall 
@@ -116,7 +116,7 @@ class FeasiblePair( object ):
         self.inpParam = inpParam #: InputParam object
         self.outParam = outParam #: OutputParam object
         self.functionToCall = functionToCall #: function using InputParam to calc OutputParam
-        self.feasibleVal = floatDammit(feasibleVal) #: feasable value of OutputParam.val
+        self.feasibleVal = floatDammit(feasibleVal) #: feasible value of OutputParam.val
         self.tolerance = floatDammit(tolerance) #: allowable error of OutputParam.val
         self.maxLoops = intDammit(maxLoops) #: maximum loops in root solver
         

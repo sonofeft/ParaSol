@@ -1,0 +1,64 @@
+------------------------------------------------------------
+Parametric Solutions
+parasol v0.2.1
+contact: C. Taylor, cet@appliedpython.com
+------------------------------------------------------------
+
+Sample Optimization
+   by: Charlie Taylor
+ date: Monday March 06, 2023
+
+
+PRIOR TO MAXIMIZE OPTIMIZATION
+ParametricSoln: Cardboard Box
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         L           12            1           20 Length of Cardboard  (in)
+         h            4            1            6 Height of Box  (in)
+
+ Figure of Merit: Box Volume (Volume) = 64 cuin <== Maximize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+   sysMass          0.2            0          0.5 Box Mass
+============================================================================
+
+
+AFTER MAXIMIZE OPTIMIZATION
+ParametricSoln: Cardboard Box
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         L      19.6667            1           20 Length of Cardboard  (in)
+         h            3            1            6 Height of Box  (in)
+
+ Figure of Merit: Box Volume (Volume) = 246 cuin <== Maximize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+   sysMass          0.5            0          0.5 Box Mass
+============================================================================
+
+==================== Design Variables =====================
+ NAME   VALUE MINIMUM MAXIMUM DESCRIPTION                  
+    L 19.6667       1      20 Length of Cardboard  (in)    
+    W      12       1      20 Width of Cardboard  (in)     
+    h       3       1       6 Height of Box  (in)          
+  thk     0.1    0.02     0.4 Thickness of Cardboard  (in) 
+===========================================================
+
+================== Result Variables ===================
+    NAME VALUE DESCRIPTION        LOW-LIMIT HIGH-LIMIT 
+  Volume   246 Box Volume  (cuin)       ---        --- 
+ sysMass   0.5 Box Mass  (lbm)           >0       <0.5 
+=======================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: Cardboard Box
+            

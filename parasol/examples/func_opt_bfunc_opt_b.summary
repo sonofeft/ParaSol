@@ -1,0 +1,62 @@
+------------------------------------------------------------
+Parametric Solutions
+parasol v0.2.1
+contact: C. Taylor, cet@appliedpython.com
+------------------------------------------------------------
+
+Minimize F(x,y) with x>=0.6 and x+y<=1
+   by: Charlie Taylor
+ date: Monday March 06, 2023
+
+
+PRIOR TO MINIMIZE OPTIMIZATION
+ParametricSoln: F(x,y)=(x-1)^2 + (y-1)^2
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         x          0.6          0.6            1 X value
+         y          0.2         -0.2          0.4 Y value
+
+ Figure of Merit: Function Value (F) = 0.8  <== Minimize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+     sumXY          0.8 ------------            1 Sum of X and Y
+============================================================================
+
+
+AFTER MINIMIZE OPTIMIZATION
+ParametricSoln: F(x,y)=(x-1)^2 + (y-1)^2
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         x          0.6          0.6            1 X value
+         y          0.4         -0.2          0.4 Y value
+
+ Figure of Merit: Function Value (F) = 0.52  <== Minimize
+
+========================== OPTIMIZATION CONSTRAINTS =========================
+      name         value        minimum   maximum
+     sumXY            1 ------------            1 Sum of X and Y
+============================================================================
+
+=========== Design Variables ===========
+ NAME VALUE MINIMUM MAXIMUM DESCRIPTION 
+    x   0.6     0.6       1 X value     
+    y   0.4    -0.2     0.4 Y value     
+========================================
+
+=============== Result Variables ================
+  NAME VALUE DESCRIPTION    LOW-LIMIT HIGH-LIMIT 
+     F  0.52 Function Value       ---        --- 
+ sumXY     1 Sum of X and Y       ---         <1 
+=================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: F(x,y)=(x-1)^2 + (y-1)^2
+            

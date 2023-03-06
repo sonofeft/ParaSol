@@ -1,0 +1,72 @@
+------------------------------------------------------------
+Parametric Solutions
+parasol v0.2.1
+contact: C. Taylor, cet@appliedpython.com
+------------------------------------------------------------
+
+Minimize F(x,y) with y>=-2
+   by: Charlie Taylor
+ date: Monday March 06, 2023
+
+
+PRIOR TO MINIMIZE OPTIMIZATION
+ParametricSoln: F(x,y)=6x^2 + y^3 + xy
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         x            1           -2            2 X value
+         y          0.2           -2            2 Y value
+
+ Figure of Merit: Function Value (F) = 6.208  <== Minimize
+============================================================================
+
+
+AFTER MINIMIZE OPTIMIZATION
+ParametricSoln: F(x,y)=6x^2 + y^3 + xy
+            
+====================== OPTIMIZATION DESIGN VARIABLES =======================
+      name         value        minimum   maximum
+         x     0.166669           -2            2 X value
+         y           -2           -2            2 Y value
+
+ Figure of Merit: Function Value (F) = -8.16667  <== Minimize
+============================================================================
+
+============ Design Variables =============
+ NAME    VALUE MINIMUM MAXIMUM DESCRIPTION 
+    x 0.166669      -2       2 X value     
+    y       -2      -2       2 Y value     
+===========================================
+
+================ Result Variables =================
+ NAME    VALUE DESCRIPTION    LOW-LIMIT HIGH-LIMIT 
+    F -8.16667 Function Value       ---        --- 
+===================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: F(x,y)=6x^2 + y^3 + xy
+            
+============ Design Variables =============
+ NAME    VALUE MINIMUM MAXIMUM DESCRIPTION 
+    x 0.166669      -2       2 X value     
+    y       -2      -2       2 Y value     
+===========================================
+
+================ Result Variables =================
+ NAME    VALUE DESCRIPTION    LOW-LIMIT HIGH-LIMIT 
+    F -8.16667 Function Value       ---        --- 
+===================================================
+
+
+
+
+======================================
+==========FULL SYSTEM SUMMARY=========
+======================================
+ParametricSoln: F(x,y)=6x^2 + y^3 + xy
+            

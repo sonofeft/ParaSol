@@ -10,7 +10,7 @@ def getNcolFromLetter( colLet ):
         Ncol = 1
     return Ncol
 
-def getNcolNrow( cell="$a$1"):
+def getNcol_Nrow( cell="$a$1"):
     sp = cell.split('$')
     Ncol=1
     Nrow=1
@@ -27,8 +27,8 @@ def getNcolumnsNrowsFromRange( crange="$A$1:$D$8" ):
     Nrows=0
     try:
         if len(sp[1])>0:
-            Nc1, Nr1 = getNcolNrow( sp[0] )
-            Nc2, Nr2 = getNcolNrow( sp[1] )
+            Nc1, Nr1 = getNcol_Nrow( sp[0] )
+            Nc2, Nr2 = getNcol_Nrow( sp[1] )
             Ncolumns = Nc2 - Nc1 + 1
             Nrows = Nr2 - Nr1 + 1
     except:

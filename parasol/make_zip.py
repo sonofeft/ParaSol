@@ -1,9 +1,10 @@
 
-from . import __init__
+# from parasol import __init__
+from parasol.__init__ import __version__
 import zipfile
 import glob, os
 
-zipFName = 'parasol_v%s.zip'%__init__.__version__.strip()
+zipFName = 'parasol_v%s.zip'%__version__.strip()
 
 
 # open the zip file for writing, and write stuff to it

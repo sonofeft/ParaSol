@@ -1,12 +1,12 @@
 ------------------------------------------------------------
 Parametric Solutions
-parasol v0.1.11
+parasol v0.2.1
 contact: C. Taylor, cet@appliedpython.com
 ------------------------------------------------------------
 
 Sample Optimization
    by: Charlie Taylor
- date: Wednesday April 18, 2018
+ date: Monday March 06, 2023
 
 
 PRIOR TO MAXIMIZE OPTIMIZATION
@@ -44,10 +44,10 @@ ParametricSoln: Cardboard Box
 
 ====================== Design Variables ======================
    NAME    VALUE MINIMUM MAXIMUM DESCRIPTION                  
- HoverW     0.25    0.05    0.45 Height/Width of Box          
-    thk      0.1    0.02     0.4 Thickness of Cardboard  (in) 
       L  16.3299       1      20 Length of Cardboard  (in)    
  WoverL 0.999999    0.05       1 Width/Length of Cardboard    
+ HoverW     0.25    0.05    0.45 Height/Width of Box          
+    thk      0.1    0.02     0.4 Thickness of Cardboard  (in) 
 ==============================================================
 
 =================== Result Variables ====================

@@ -59,6 +59,7 @@ from parasol.Summary import Summary
 __author__ = 'Charlie Taylor'
 __copyright__ = 'Copyright (c) 2009 Charlie Taylor'
 __license__ = 'GPL-3'
+__version__ = '' # will be set by next line of code
 exec( open(os.path.join( here,'_version.py' )).read() )  # creates local __version__ variable
 __email__ = "cet@appliedpython.com"
 __status__ = "3 - Alpha" # "3 - Alpha", "4 - Beta", "5 - Production/Stable"
@@ -118,21 +119,21 @@ def win32Warning(appName):
 
 if _userOptions.excel:
     try:
-        from . import Excel_wrapper
+        from parasol import Excel_wrapper
     except:
         _userOptions.excel = False
         win32Warning('Microsoft Excel')
         
 if _userOptions.word:
     try:
-        from . import Word_wrapper
+        from parasol import Word_wrapper
     except:
         _userOptions.word = False
         win32Warning('Microsoft Word')
         
 if _userOptions.ppt:
     try:
-        import PPT_wrapper
+        from parasol import PPT_wrapper
     except:
         _userOptions.ppt = False
         win32Warning('Microsoft PowerPoint')
@@ -609,7 +610,7 @@ class ParametricSoln(object):
                 
         for key,dv in list(self.desVarDict.items()):
             if self.hasMinMaxControlVar(key) or self.hasFeasibleControlVar(key):
-                # control varaibles in minmax or feasible change like result vars
+                # control variables in minmax or feasible change like result vars
                 resultVarL.append(['contVar',key,dv])
         for key,rv in list(self.resultVarDict.items()):
             resultVarL.append(['resVar',key,rv])
@@ -870,7 +871,7 @@ class ParametricSoln(object):
                 
         for key,dv in list(self.desVarDict.items()):
             if self.hasMinMaxControlVar(key) or self.hasFeasibleControlVar(key):
-                # control varaibles in minmax or feasible change like result vars
+                # control variables in minmax or feasible change like result vars
                 resultVarL.append(['contVar',key,dv])
         for key,rv in list(self.resultVarDict.items()):
             resultVarL.append(['resVar',key,rv])
@@ -1273,16 +1274,16 @@ if __name__ == "__main__":  #self test
         
         PS.close()
     
-    if 1:
-        test_case()
-    else:
-        import hotshot, hotshot.stats
-        prof = hotshot.Profile("test_case.prof")
-        prof.runcall(test_case)
-        prof.close()
+    # if 1:
+    test_case()
+    # else:
+    #     import hotshot, hotshot.stats
+    #     prof = hotshot.Profile("test_case.prof")
+    #     prof.runcall(test_case)
+    #     prof.close()
         
-        stats = hotshot.stats.load("test_case.prof")
-        stats.strip_dirs()
-        stats.sort_stats('time', 'calls')
-        stats.print_stats(60)
+    #     stats = hotshot.stats.load("test_case.prof")
+    #     stats.strip_dirs()
+    #     stats.sort_stats('time', 'calls')
+    #     stats.print_stats(60)
     
