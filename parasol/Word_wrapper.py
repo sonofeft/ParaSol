@@ -522,7 +522,7 @@ if __name__ == "__main__": #Self Test
 #    w.addText('Line 3\n\n')
 #    w.addText('Line 4\n\n')
     
-    from .Summary import Summary
+    from parasol.Summary import Summary
     S = Summary( summaryTitle='Summary Title', subTitle='subtitle')
     S.addAssumption( 'Assume this is a test' )
     

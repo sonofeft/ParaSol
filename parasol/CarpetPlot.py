@@ -2,6 +2,7 @@
 from pylab import *
 import copy
 from math import *
+from matplotlib.ticker import FormatStrFormatter
 
 #def setAxes():
 #    ax = gca()
@@ -174,8 +175,8 @@ class Carpet( object ):
             bbox['alpha'] = self.alphaInLineLabels
         props = {'ha':'center', 'va':'center', 'bbox':bbox}
         
-        dx = (xmax-xmin)/50.0
-        dy = (ymax-ymin)/50.0
+        # dx = (xmax-xmin)/50.0
+        # dy = (ymax-ymin)/50.0
         label = ''
         if self.iLabelsX > len(self.bValL)-2:
             self.iLabelsX = len(self.bValL)-2
@@ -189,7 +190,7 @@ class Carpet( object ):
             
             i1 = bL.index( self.bValL[self.iLabelsX+1] )
             i0 = bL.index( self.bValL[self.iLabelsX] )
-            i = (i1+i0)/2
+            i = int((i1+i0)/2)
             
             self.placeLabel(i, xL, yL, afmt, label,  xmin, xmax, ymin, ymax, props)
 
@@ -207,7 +208,7 @@ class Carpet( object ):
                 
             ilast = aL.index( self.aValL[self.iLabelsY+1] )
             ipen = aL.index( self.aValL[self.iLabelsY] )
-            i = (ilast+ipen)/2
+            i = int((ilast+ipen)/2)
             
             self.placeLabel(i, xL, yL, bfmt, label,  xmin, xmax, ymin, ymax, props)
             
