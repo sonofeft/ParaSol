@@ -31,15 +31,15 @@ class Goal( object ):
             X, ierror = self.cren_goal(self.goalVal, self.minX, self.maxX, 
                 self.funcOfX, self.tolerance, self.maxLoops)
         except:
-            print "ERROR unrecoverable in Goal.py"
+            print("ERROR unrecoverable in Goal.py")
             X = self.maxX
             
         if ierror:
             if (self.failValue==None):
                 X = self.maxX
-                print "returned an ERROR=%s from cren_goal in goalFind.py"%str(ierror)
-                print "goalVal, minX, maxX, funcOfX",self.goalVal, self.minX, self.maxX, self.funcOfX.__name__
-                print "using X value=",X
+                print("returned an ERROR=%s from cren_goal in goalFind.py"%str(ierror))
+                print("goalVal, minX, maxX, funcOfX",self.goalVal, self.minX, self.maxX, self.funcOfX.__name__)
+                print("using X value=",X)
             else:
                 X = self.failValue
             
@@ -136,15 +136,15 @@ if __name__ == "__main__":  #self test
         #print 'calling FofX with x=',x
         return x**3 - x**2 + x - 11.875
         
-    print '======================================================'
-    print '----->Answer should be = 2.5'
-    print 'with tolerance=1.0E-3  =',
+    print('======================================================')
+    print('----->Answer should be = 2.5')
+    print('with tolerance=1.0E-3  =', end=' ')
     G = Goal(goalVal=0.0, minX=0.0, maxX=57.123, 
         funcOfX=FofX, tolerance=1.0E-3, maxLoops=40, failValue=None)
-    print G()
+    print(G())
     
-    print 'with tolerance=1.0E-20 =',
+    print('with tolerance=1.0E-20 =', end=' ')
     G2 = Goal(goalVal=0.0, minX=0.0, maxX=57.123, 
         funcOfX=FofX, tolerance=1.0E-20, maxLoops=40, failValue=None)
-    print G2()
+    print(G2())
     

@@ -1,5 +1,5 @@
 
-import __init__
+from . import __init__
 import zipfile
 import glob, os
 
@@ -20,5 +20,5 @@ file.close()
 
 file = zipfile.ZipFile(zipFName, "r")
 for info in file.infolist():
-    print info.filename, info.date_time, info.file_size, info.compress_size
+    print(info.filename, info.date_time, info.file_size, info.compress_size)
 

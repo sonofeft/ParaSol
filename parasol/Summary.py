@@ -135,7 +135,7 @@ if __name__ == "__main__":  #self test
     
     S.addInput( label='Solar Flux', value=1.0, units='BTU/sqin', format='%g')
     S.addOutput(label='Tea Temperature', value=100.0, units='C', format='%g')
-    print S.getTextSummary()
-    print
-    print S.getHTMLSummary()
+    print(S.getTextSummary())
+    print()
+    print(S.getHTMLSummary())
     

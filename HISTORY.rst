@@ -7,6 +7,11 @@ History
 GitHub Log
 ----------
 
+* March 6, 2023
+    - (by: sonofeft) 
+        - Updating to Python 3.x
+        - Dropping support for Python 2.x
+
 * Jul 31, 2016
     - (by: sonofeft) 
         - Fixing path generation for Linux

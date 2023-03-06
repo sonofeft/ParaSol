@@ -27,16 +27,16 @@ try:
 except:
     lastCommitSig = 'commit signature, "date_str author_str sha_str"'
     
-print('lastCommitSig =',lastCommitSig)
+print(('lastCommitSig =',lastCommitSig))
 
 GITHUB_USER = 'sonofeft'
 
 
-print( '='*55 )
+print(( '='*55 ))
 print( '     Building HISTORY.rst file' )
-print( '     at: ' + here )
-print( '     Need GitHub user password for ' + GITHUB_USER)
-print( '='*55 )
+print(( '     at: ' + here ))
+print(( '     Need GitHub user password for ' + GITHUB_USER))
+print(( '='*55 ))
 PASSWORD = getpass.getpass(prompt='Enter Password: ')
 
 github_url = "https://api.github.com/repos/sonofeft/ParaSol/commits"
@@ -45,7 +45,7 @@ headers = {'content-type': 'application/json'}
 t = requests.get(github_url, auth=(GITHUB_USER,PASSWORD))
 commitL = t.json()
     
-print( 'len(commitL) =' + '%s'%len(commitL) )
+print(( 'len(commitL) =' + '%s'%len(commitL) ))
 
 newestCommitSig = None
 newAdditionsL = [] # tuples of (date_str, author_str, sha_str, msgL)
@@ -59,7 +59,7 @@ for D in commitL:
     if not newestCommitSig:
         newestCommitSig = commitSig
         
-    print( date_str, author_str, sha_str ) #, msgL
+    print(( date_str, author_str, sha_str )) #, msgL
     if commitSig == lastCommitSig:
         print('^^^^^^^^^^^^^^^^^ Matches last commit signature')
         break # only use the new commits, bail out when hitting the last
@@ -102,7 +102,7 @@ for date_str, author_str, sha_str, msgL in newAdditionsL:
 
 
 
-    print( date_str + ' ' + repr(msgL) )
+    print(( date_str + ' ' + repr(msgL) ))
 
     last_date_str = date_str
     last_author_str = author_str

@@ -1,7 +1,7 @@
 from win32com.client import Dispatch
-from excel_const import constants
+from parasol.excel_const import constants
 import string
-import xlChFormula
+from parasol import xlChFormula
 import sys, os
 
 def squareUpRS( rs, pad='' ):
@@ -356,7 +356,7 @@ class ExcelWrap:
                 xLabels[self.getCellValue( cell=self.formula.labelLoc )] = 1
         except:
             pass
-        for k in xLabels.keys():
+        for k in list(xLabels.keys()):
             if len(allXNames)>0:allXNames = allXNames + ', '
             allXNames = allXNames + k
         return allXNames

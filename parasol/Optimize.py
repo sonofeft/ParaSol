@@ -1,8 +1,8 @@
 # Written by Charlie Taylor
 
-from scipy.optimize.cobyla import fmin_cobyla
+from scipy.optimize import fmin_cobyla
 import os
-import cast
+from parasol.cast import intDammit
 import traceback
 
 optFSys = None # set this global variable to current object being optimized
@@ -32,13 +32,13 @@ def objFunction(x):
         #print 'fObj=',fObj                        # debug print
     except:
         fObj = 0.0
-        print "ERROR... calling optimizer"
+        print("ERROR... calling optimizer")
     
     if not _findmin:
         fObj *= -1.0
         
     #print  "in fvals", x, _fResult,
-    print ".",
+    print(".", end=' ')
     _optLoopCount += 1
     return fObj
     
@@ -99,7 +99,7 @@ def getOptVarSummary(PS, optVarList=None):
         PS.getResultVar(PS.figureOfMerit), fmerit.units, mLabel)
     
     showCon = 0
-    for key,rv in PS.resultVarDict.items():
+    for key,rv in list(PS.resultVarDict.items()):
         if rv.isConstrained():
             if not showCon:
                 showCon = 1
@@ -124,11 +124,11 @@ def getOptVarSummary(PS, optVarList=None):
             + '======================================\n'
     
 def saveOptVarSummary(PS, optVarList=None, title=''):
-    print 'saving Optimization Variable Summary to',os.path.split(PS.summFileName)[-1] 
+    print('saving Optimization Variable Summary to',os.path.split(PS.summFileName)[-1]) 
     
     summStr =  getOptVarSummary(PS, optVarList)
     PS.summFile.write( title + summStr + '\n' )
-    print title, summStr
+    print(title, summStr)
     
     PS.optimizeHistoryL.append( [title, summStr] )
     
@@ -144,8 +144,8 @@ def saveOptVarSummary(PS, optVarList=None, title=''):
                 textFont='Courier New', textFontSize=14,
                 noBullets=1)
         except:
-            print "ERROR... FAILED to put plot in PowerPoint file"
-            print traceback.print_exc()
+            print("ERROR... FAILED to put plot in PowerPoint file")
+            print(traceback.print_exc())
         
     if PS.userOptions.word:
         tableStr = [(title,),(' ',)]
@@ -188,7 +188,7 @@ def optimize(PS, figureOfMerit="mass_lbm", desVars=None,
     for dvStr in desVars:
         dv = PS.desVarDict[dvStr]
         if PS.hasFeasibleControlVar( dv.name ):
-            print 'WARNING... %s is a feasible design variable\n   It can NOT be used as an optimization variable.'%dvStr
+            print('WARNING... %s is a feasible design variable\n   It can NOT be used as an optimization variable.'%dvStr)
             pass
         else:
             PS.optDesVars.append( dvStr )
@@ -207,7 +207,7 @@ def optimize(PS, figureOfMerit="mass_lbm", desVars=None,
    
     
     if ndv <= 0:
-        print "ERROR... there are no legal design variables for optimization"
+        print("ERROR... there are no legal design variables for optimization")
         return
  
     xlow=[]
@@ -225,7 +225,7 @@ def optimize(PS, figureOfMerit="mass_lbm", desVars=None,
         
     # count any result variables that might be constraints
     PS.constraintList[:] = []
-    for key,rv in PS.resultVarDict.items():
+    for key,rv in list(PS.resultVarDict.items()):
         # only handle inequality constraints, equality constraints handled by feasibility variables
         if rv.hasLowConstraint() :  
             PS.constraintList.append( ['>',key] )
@@ -259,14 +259,13 @@ def optimize(PS, figureOfMerit="mass_lbm", desVars=None,
     
     
     # rhobeg can be 1.0 because x values are scaled.
-    
     xOut = fmin_cobyla(objFunction, xinit, cons, rhobeg=1.0, rhoend=1e-6,
-            iprint=cast.intDammit(printLevel), maxfun=MaxLoop)
+            disp=intDammit(printLevel), maxfun=MaxLoop)
 
     if printLevel:
-        print
-        print "   ==> OPTIMIZATION (Loops = %i)"%_optLoopCount, "(Max = %g)"%MaxLoop,
-        print " (%i constraint loops)\n"%_constraintLoopCount
+        print()
+        print("   ==> OPTIMIZATION (Loops = %i)"%_optLoopCount, "(Max = %g)"%MaxLoop, end=' ')
+        print(" (%i constraint loops)\n"%_constraintLoopCount)
     
     for i in range( len(PS.optDesVars) ):
         dvStr = PS.optDesVars[i]
@@ -274,12 +273,12 @@ def optimize(PS, figureOfMerit="mass_lbm", desVars=None,
         
         dvVal = xOut[i] * dv.scaleFactor
         if printLevel:
-            print 'optimum',dvStr,'=',dvVal
+            print('optimum',dvStr,'=',dvVal)
         #PS.summFile.write( '\noptimum %10s = %g'%(dvStr, dvVal) )
     if printLevel:
-        print '\nscaled desVars',PS.optDesVars,'=',xOut[:ndv]
+        print('\nscaled desVars',PS.optDesVars,'=',xOut[:ndv])
         
-        print 'gives',figureOfMerit,'=',PS.getResultVar(figureOfMerit),'\n'
+        print('gives',figureOfMerit,'=',PS.getResultVar(figureOfMerit),'\n')
     
     #PS.summFile.write('\n\ngives '+ str(figureOfMerit)+\
     #    ' = '+ str(PS.getResultVar(figureOfMerit))+'\n')
@@ -299,7 +298,7 @@ def optimize(PS, figureOfMerit="mass_lbm", desVars=None,
 
 if __name__ == "__main__":  #self test
         
-    from parasol_main import ParametricSoln
+    from parasol.parasol_main import ParametricSoln
 
     # create system object (make sure author is correct... it's used for report)
     PS = ParametricSoln(subtaskName="Cardboard Box", 
@@ -350,8 +349,8 @@ if __name__ == "__main__":  #self test
     # now optimize the system...
     optimize(PS, figureOfMerit="Volume", desVars=['h'], findmin=0)
 
-    print getOptVarSummary(PS, PS.optDesVars )
-    print '   ===> Answer Should Be h = 2,  Volume = 128'
+    print(getOptVarSummary(PS, PS.optDesVars ))
+    print('   ===> Answer Should Be h = 2,  Volume = 128')
     
     # now save summary of system
     PS.saveFullSummary()

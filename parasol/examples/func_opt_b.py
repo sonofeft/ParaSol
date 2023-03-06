@@ -34,6 +34,7 @@ def myControlRoutine(PS):
 # need to tell system the name of the control routine
 PS.setControlRoutine(myControlRoutine)
 
+
 # now optimize the system.
 minimize(PS, figureOfMerit="F", desVars=[ 'x','y'], MaxLoop=500)
 

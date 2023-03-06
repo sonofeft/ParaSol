@@ -5,8 +5,8 @@ __date__ = "Jan 1, 2009"
 __copyright__ = "Copyright (c) 2009 Charlie Taylor"
 __license__ = "BSD"
 
-from Goal import Goal
-from cast import floatDammit, intDammit
+from parasol.Goal import Goal
+from parasol.cast import floatDammit, intDammit
 from scipy.optimize import fminbound
 
 POS_INF =  1.0E300
@@ -261,7 +261,7 @@ class InputParam( object ):
                 self.stepVal = None #: undefined if using geometric range
             except:
                 # only annoy the user slightly with non-critical error
-                print 'WARNING... Switched to linear range in parameters.InputParam for min/max=%g/%g'%(self.minVal,self.maxVal)
+                print('WARNING... Switched to linear range in parameters.InputParam for min/max=%g/%g'%(self.minVal,self.maxVal))
                 self.buildLinearRange()
 
         # make scaleFactor for other modules to use (e.g. optimize)
@@ -306,18 +306,18 @@ if __name__ == "__main__":
     
     IP = InputParam(name='a', description='speed of sound', units='ft/sec',
         val=1.0, minVal=1000.0, maxVal=6000.0, NSteps=5, stepVal=None, linear=1)
-    print 'check linear range'
-    print IP.rangeL
+    print('check linear range')
+    print(IP.rangeL)
             
-    print 'check output param'
+    print('check output param')
     OP = OutputParam(name='delay', description='delay in sound arrival', units='sec',
         val=1.0, loLimit=1.0, hiLimit=10.0)
     
     OP.val = 0.0
-    print OP.val,'within limits=',OP.inRange()
+    print(OP.val,'within limits=',OP.inRange())
     
-    print
-    print 'checking feasible pair'
+    print()
+    print('checking feasible pair')
     def feasTest():
         OP.val = 7000./IP.val # MUST reassign OutputParam.val property
         return
@@ -325,11 +325,11 @@ if __name__ == "__main__":
     FP = FeasiblePair(  inpParam=IP, outParam=OP, functionToCall=feasTest,
         feasibleVal=5.0, tolerance=1.0E-6, maxLoops=40, failValue=None)
     FP.reCalc()
-    print 'for IP.val=',IP.val,'OP.val=',OP.val,'IP.val should be 1400.0'
+    print('for IP.val=',IP.val,'OP.val=',OP.val,'IP.val should be 1400.0')
     
     
-    print
-    print 'checking min/max pair'
+    print()
+    print('checking min/max pair')
     def minmaxTest():
         x = (IP.val-1000.0)/1000.0
         OP.val = 10.0 * (x**2 - x**3) # MUST reassign OutputParam.val property
@@ -338,5 +338,5 @@ if __name__ == "__main__":
     MP = MinMaxPair( inpParam=IP, outParam=OP, functionToCall=minmaxTest,
         findmin=0, tolerance=1.0E-6, maxLoops=400, failValue=None)
     MP.reCalc()
-    print 'for IP.val=',IP.val,'OP.val=',OP.val,'IP.val should be 1666.666...'    
+    print('for IP.val=',IP.val,'OP.val=',OP.val,'IP.val should be 1666.666...')    
     

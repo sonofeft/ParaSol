@@ -40,20 +40,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from math import *
 import traceback
-import cPickle as pickle
+import pickle as pickle
 import os
 here = os.path.abspath(os.path.dirname(__file__))
 
-from parameters import InputParam, OutputParam, FeasiblePair, MinMaxPair, POS_INF, NEG_INF 
+from parasol.parameters import InputParam, OutputParam, FeasiblePair, MinMaxPair, POS_INF, NEG_INF 
 
 
 import sys, os
 import time
-import HTML_supt
+from parasol import HTML_supt
 
-import LikeDict
-from cast import floatDammit, intDammit
-from Summary import Summary
+from parasol import LikeDict
+from parasol.cast import floatDammit, intDammit
+from parasol.Summary import Summary
 
 
 __author__ = 'Charlie Taylor'
@@ -106,26 +106,26 @@ _parser.add_option("-f", "--font", action="store",
 (_userOptions, _userArgs) = _parser.parse_args()
 
 def win32Warning(appName):
-        print '\n============================================================='
-        print "WARNING  WARNING  WARNING  WARNING  WARNING  WARNING  WARNING"
-        print '=============================================================\n'
-        print "    Could NOT start ",appName
-        print '    make sure that you have installed "Python for Windows Extension"'
-        print '    from: http://starship.python.net/crew/mhammond/win32/\n'
-        print '    for python version:',sys.version.split()[0]
-        print '============================================================='
-        raw_input('Hit Return to Continue w/o '+appName)
+        print('\n=============================================================')
+        print("WARNING  WARNING  WARNING  WARNING  WARNING  WARNING  WARNING")
+        print('=============================================================\n')
+        print("    Could NOT start ",appName)
+        print('    make sure that you have installed "Python for Windows Extension"')
+        print('    from: http://starship.python.net/crew/mhammond/win32/\n')
+        print('    for python version:',sys.version.split()[0])
+        print('=============================================================')
+        input('Hit Return to Continue w/o '+appName)
 
 if _userOptions.excel:
     try:
-        import Excel_wrapper
+        from . import Excel_wrapper
     except:
         _userOptions.excel = False
         win32Warning('Microsoft Excel')
         
 if _userOptions.word:
     try:
-        import Word_wrapper
+        from . import Word_wrapper
     except:
         _userOptions.word = False
         win32Warning('Microsoft Word')
@@ -140,7 +140,7 @@ if _userOptions.ppt:
 # -----------------
     
 def headerStr( hstr, fillCh, L ):
-    l2 = (L - len(hstr) - 2) / 2
+    l2 = int((L - len(hstr) - 2) / 2)
     s = fillCh*l2 + ' ' + hstr + ' '
     return s + fillCh*(L-len(s))
 
@@ -176,7 +176,7 @@ class ParametricSoln(object):
         elif self.hasResultVar( name ):
             self.setResultVar(name, val)
         else:
-            print 'ERROR in ParametricSoln.__setitem__, %s is not recognized'%name
+            print('ERROR in ParametricSoln.__setitem__, %s is not recognized'%name)
     
     def __call__(self, *varNames):
         '''return the values of design and result variables in varNames list'''
@@ -234,14 +234,14 @@ class ParametricSoln(object):
         
         newDirPath = os.path.join( os.path.dirname( scriptPath ) , scriptName[:-3] )
         if printFilePaths:
-            print "scriptName:",scriptName
-            print "scriptPath:",scriptPath
-            print "newDirPath:",newDirPath
+            print("scriptName:",scriptName)
+            print("scriptPath:",scriptPath)
+            print("newDirPath:",newDirPath)
         
         if not os.path.isdir( newDirPath ):
             os.mkdir( newDirPath )
             if printFilePaths:
-                print "created new directory",newDirPath
+                print("created new directory",newDirPath)
 
         self.scriptName = scriptName
         self.outputPath = newDirPath
@@ -270,7 +270,7 @@ class ParametricSoln(object):
         self.htmlFileName = os.path.join( os.path.dirname( scriptPath ),
                             scriptName[:-2] + 'htm' )
         if printFilePaths:
-            print 'HTML file:',self.htmlFileName
+            print('HTML file:',self.htmlFileName)
         
         # if multiple ParametricSoln objects, use same htmlFile
         if ParametricSoln.__firstParametricSoln:
@@ -292,8 +292,8 @@ class ParametricSoln(object):
             for row in probDesc.resVarL:
                 self.addResultVars( row )
 
-            for name, row in probDesc.resVarLimitD.items():
-                print 'name, row=',name, row
+            for name, row in list(probDesc.resVarLimitD.items()):
+                print('name, row=',name, row)
                 self.setResultVariableLimits( name=name, loLimit=row[0], hiLimit=row[1])
         
             if probDesc.controlRoutine:
@@ -405,7 +405,7 @@ class ParametricSoln(object):
     
     def close(self):
         # set flag to show self.close() was called
-        print 'Closing all open files'
+        print('Closing all open files')
         self._close_was_called = 1
         
         self.htmlFile.write('<table class="mytable">')
@@ -431,8 +431,8 @@ class ParametricSoln(object):
                     addText( '\n\n' )
                         
                 sheetName="Optimization"
-                if not self.xlSheetD.has_key(sheetName):
-                    print 'making excel sheet',sheetName
+                if sheetName not in self.xlSheetD:
+                    print('making excel sheet',sheetName)
                     self.xlSheetD[sheetName] = sheetName
                     self.xlDoc.makeDataSheet( rs, sheetName=sheetName, autoFit=0, rowFormatL=None,
                         textFont='Courier New', textFontSize=10)
@@ -458,7 +458,7 @@ class ParametricSoln(object):
             self.wordDoc.saveAs(self.wordDocName)
             if not self.userOptions.open:
                 self.wordDoc.Quit()
-        print splashText
+        print(splashText)
     
     def setDesignVar(self, dvStr, val):
         dv = self.desVarDict[dvStr]
@@ -512,7 +512,7 @@ class ParametricSoln(object):
     def getDesVarShortSummary(self, *omitList):
         
         sList = []
-        for key,dv in self.desVarDict.items():
+        for key,dv in list(self.desVarDict.items()):
             if key in omitList:
                 continue
             
@@ -528,7 +528,7 @@ class ParametricSoln(object):
         
         oList = [( 'NAME','VALUE','MINIMUM','MAXIMUM','DESCRIPTION','','')]
         
-        for key,dv in self.desVarDict.items():
+        for key,dv in list(self.desVarDict.items()):
             if key in omitList:
                 continue
             desc = dv.description
@@ -571,13 +571,13 @@ class ParametricSoln(object):
     def getHTMLDesVarSummary(self, *omitList):
         #print 'self.desVarDict.keys()=',self.desVarDict.keys()
         #print 'omitList=',omitList
-        if len(omitList) + len(self.feasibleVarList)>=len(self.desVarDict.keys()):
+        if len(omitList) + len(self.feasibleVarList)>=len(list(self.desVarDict.keys())):
             return ''
         
         summary = '<table class="mytable"><th colspan="4" bgcolor="#CCCCCC">Design Variables (nominal values)</th>' +\
             '<tr><td><b>Name</b></td><td><b>Value</b></td><td><b>Units</b></td><td><b>Description</b></td></tr>'
         
-        for key,dv in self.desVarDict.items():
+        for key,dv in list(self.desVarDict.items()):
             if key in omitList:
                 continue
                 
@@ -607,11 +607,11 @@ class ParametricSoln(object):
         resultVarL = [] #: list of result var objects (rv) including design control vars
         #  resultVarL includes desVars that are control variables, (minmax or feasible)
                 
-        for key,dv in self.desVarDict.items():
+        for key,dv in list(self.desVarDict.items()):
             if self.hasMinMaxControlVar(key) or self.hasFeasibleControlVar(key):
                 # control varaibles in minmax or feasible change like result vars
                 resultVarL.append(['contVar',key,dv])
-        for key,rv in self.resultVarDict.items():
+        for key,rv in list(self.resultVarDict.items()):
             resultVarL.append(['resVar',key,rv])
 
 
@@ -647,7 +647,7 @@ class ParametricSoln(object):
         return summary + '</table>'
     
     def saveDesVarSummary(self):
-        print 'saving Design Variable Summary to',os.path.split(self.summFileName)[-1] 
+        print('saving Design Variable Summary to',os.path.split(self.summFileName)[-1]) 
         self.summFile.write( self.getDesVarSummary() + '\n' )
         
         self.htmlFile.write('<center><table border="1" class="mytable">')
@@ -667,7 +667,7 @@ class ParametricSoln(object):
         
 
     def hasDesignVar(self, dvStr):
-        return self.desVarDict.has_key(dvStr)
+        return dvStr in self.desVarDict
 
     def addDesignVariable(self, name="desvar", InitialVal=0.0,
         minVal=-1.0E300, maxVal=1.0E300, NSteps=10,
@@ -682,8 +682,8 @@ class ParametricSoln(object):
         
         try:
             if dv.NSteps>100:
-                print 'WARNING... more than 100 steps in design variable',name
-                print '  a large number of steps will increase run times'
+                print('WARNING... more than 100 steps in design variable',name)
+                print('  a large number of steps will increase run times')
         except:
             pass
         
@@ -815,18 +815,18 @@ class ParametricSoln(object):
                 self.addResultVariable(name,units,desc,loLimit, hiLimit)
 
     def hasResultVar(self, rvStr):
-        return self.resultVarDict.has_key(rvStr)
+        return rvStr in self.resultVarDict
     
     def setResultVar(self, rvStr, val):
         try:
             rv = self.resultVarDict[rvStr]
             rv.val = val
         except:
-            print 'Ignore ERROR in setResultVar... No result variable "%s"'%str(rvStr)
+            print('Ignore ERROR in setResultVar... No result variable "%s"'%str(rvStr))
         
     def getResultVar(self, rvStr):
         # accept either result variables OR native attributes
-        if self.resultVarDict.has_key(rvStr):
+        if rvStr in self.resultVarDict:
             rv = self.resultVarDict[rvStr]
             return rv.val
         elif self.hasMinMaxControlVar(rvStr) or self.hasFeasibleControlVar(rvStr) :
@@ -851,7 +851,7 @@ class ParametricSoln(object):
         
     def getResultVarAxisLabel(self, rvStr):
         # accept either result variables OR native attributes
-        if self.resultVarDict.has_key(rvStr):
+        if rvStr in self.resultVarDict:
             rv = self.resultVarDict[rvStr]
             return self.getAxisLabel( rvStr, rv )
             
@@ -868,11 +868,11 @@ class ParametricSoln(object):
         resultVarL = [] #: list of result var objects (rv) including design control vars
         #  resultVarL includes desVars that are control variables, (minmax or feasible)
                 
-        for key,dv in self.desVarDict.items():
+        for key,dv in list(self.desVarDict.items()):
             if self.hasMinMaxControlVar(key) or self.hasFeasibleControlVar(key):
                 # control varaibles in minmax or feasible change like result vars
                 resultVarL.append(['contVar',key,dv])
-        for key,rv in self.resultVarDict.items():
+        for key,rv in list(self.resultVarDict.items()):
             resultVarL.append(['resVar',key,rv])
         
         
@@ -932,13 +932,13 @@ class ParametricSoln(object):
             '\n'.join( sList ) + '\n' + ast + '\n'
     
     def saveResultVarSummary(self):
-        print 'saving Result Variable Summary to',os.path.split(self.summFileName)[-1] 
+        print('saving Result Variable Summary to',os.path.split(self.summFileName)[-1]) 
         self.summFile.write( self.getResultVarSummary() + '\n' )
 
     def violatesResultConstraint(self):
         vioList = []
         
-        for key,rv in self.resultVarDict.items():
+        for key,rv in list(self.resultVarDict.items()):
             # only handle inequality constraints, 
             # equality constraints handled by feasibility variables
             
@@ -1017,7 +1017,7 @@ class ParametricSoln(object):
             '''%(self.subtaskName,) + self.getAssumptions()
     
     def saveSummary(self):
-        print 'saving Summary to',os.path.split(self.summFileName)[-1] 
+        print('saving Summary to',os.path.split(self.summFileName)[-1]) 
         self.summFile.write( self.getSummary() + '\n' )
     
     def getShortSummary(self):
@@ -1045,10 +1045,10 @@ class ParametricSoln(object):
     
     
     def saveShortSummary(self):
-        print 'saving Short Summary to',os.path.split(self.summFileName)[-1] 
+        print('saving Short Summary to',os.path.split(self.summFileName)[-1]) 
         self.summFile.write( self.getShortSummary() + '\n' )
 
-        print 'saving Short Summary to',os.path.split(self.htmlFileName)[-1] 
+        print('saving Short Summary to',os.path.split(self.htmlFileName)[-1]) 
         self.htmlFile.write( self.getShortHTMLSummary() + '<br>\n' )
         
         if self.userOptions.excel:
@@ -1068,8 +1068,8 @@ class ParametricSoln(object):
                     rs.append( [s] )
                 
             sheetName="ShortSummary"
-            if not self.xlSheetD.has_key(sheetName):
-                print 'making sheet',sheetName
+            if sheetName not in self.xlSheetD:
+                print('making sheet',sheetName)
                 self.xlSheetD[sheetName] = sheetName
                 self.xlDoc.makeDataSheet( rs, sheetName=sheetName, autoFit=0, rowFormatL=None)
 
@@ -1117,16 +1117,16 @@ class ParametricSoln(object):
 
     
     def saveFullSummary(self):
-        print 'saving Full Summary to',os.path.split(self.summFileName)[-1] 
+        print('saving Full Summary to',os.path.split(self.summFileName)[-1]) 
         self.summFile.write( self.getFullSummary() + '\n' )
 
-        print 'saving Full Summary to',os.path.split(self.htmlFileName)[-1] 
+        print('saving Full Summary to',os.path.split(self.htmlFileName)[-1]) 
         self.htmlFile.write( self.getFullHTMLSummary() + '<br>\n' )
         
 
 
     def saveComment(self, comment=''):
-        print 'saving comment to file'
+        print('saving comment to file')
         
         sOut = []
         sOut.append('========================================')
@@ -1142,16 +1142,16 @@ class ParametricSoln(object):
         self.htmlFile.write( '\n'.join( sOut ) )
 
     def putImageInPPT( self, filename, title):
-        print 'saving Image to',os.path.split(self.pptDocName)[-1] 
+        print('saving Image to',os.path.split(self.pptDocName)[-1]) 
         try:
             self.pptDoc.addImageSlide( imgFile=filename, title=title.replace('\n','\r'))
         except:
-            print "ERROR... FAILED to put image in PowerPoint file"
-            print traceback.print_exc()
+            print("ERROR... FAILED to put image in PowerPoint file")
+            print(traceback.print_exc())
 
 
     def putImageInWord( self, filename):
-        print 'saving Image to',os.path.split(self.wordDocName)[-1] 
+        print('saving Image to',os.path.split(self.wordDocName)[-1]) 
         tableStr = [(' ',),(' ',)]
         wordTable1 = self.wordDoc.addTable( tableStr, Range=self.wordDoc.selectCharacter(-2) )
         wordTable1.Style = self.tblstyl
@@ -1169,20 +1169,20 @@ class ParametricSoln(object):
         itemL = []
         
         # now save ParametricSoln object
-        print 'pickling object', self.__class__.__name__
+        print('pickling object', self.__class__.__name__)
         itemD = {}
         itemD['className'] = self.__class__.__name__
-        for key,val in self.__dict__.items():
+        for key,val in list(self.__dict__.items()):
             if type(val) in [type(1), type(1.1), type('s')]: # eliminated list type
                 #print key,val
                 itemD[key]=val
         
         # save result and design variables
-        for key,rv in self.resultVarDict.items():
+        for key,rv in list(self.resultVarDict.items()):
             itemD[key] = rv.val 
                     
 
-        for key,dv in self.desVarDict.items():
+        for key,dv in list(self.desVarDict.items()):
             itemD[key] = dv.val 
             itemD[key+'_units'] = dv.units
             itemD[key+'_desc'] = dv.description
@@ -1210,9 +1210,9 @@ class ParametricSoln(object):
         # save ParametricSoln dictionary to List
         itemL.append( itemD )
         
-        print 'Saving to Pickle file:',self.pickleFileName
+        print('Saving to Pickle file:',self.pickleFileName)
             
-        fOut = file(self.pickleFileName, 'w')
+        fOut = open(self.pickleFileName, 'w')
         pickle.dump( itemL, fOut )
         fOut.close()
 
@@ -1251,7 +1251,7 @@ if __name__ == "__main__":  #self test
         PS.makeFeasiblePair( outName="sysMass", feasibleVal=50., inpName='b')
 
 
-        print
+        print()
         PS.evaluate() # <-- needed since myControlRoutine set with ParametricSoln creation
         #PS.saveShortSummary()
         #PS.saveSummary()
@@ -1261,15 +1261,15 @@ if __name__ == "__main__":  #self test
         
         PS.saveFullSummary()
         
-        print PS.getShortSummary()
+        print(PS.getShortSummary())
         #print Hetank.getSummary()
         
         #optimize(PS, figureOfMerit="mass_lbm", desVars=["PHe"])
-        print PS.getShortSummary()
+        print(PS.getShortSummary())
         #Plots.make2DPlot(PS, sysParam="mass_lbm", desVar="PHe")
-        print
-        print 'vioList'
-        print PS.violatesResultConstraint()
+        print()
+        print('vioList')
+        print(PS.violatesResultConstraint())
         
         PS.close()
     

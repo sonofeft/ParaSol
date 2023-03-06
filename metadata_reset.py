@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: ascii -*-
-from __future__ import print_function
+
 
 """
 Look for a line of code ending with a comment that starts with "# METADATA_RESET:"
@@ -22,7 +22,7 @@ def render_line( line, metadataD ):
     code_str = sL[-1].rstrip()
     print('  Change:', sL[0].rstrip() )
     
-    for key,val in metadataD.items():
+    for key,val in list(metadataD.items()):
         if code_str.find(key) >= 0:
             code_str = code_str.replace( key, val )
             

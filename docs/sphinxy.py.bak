@@ -61,9 +61,9 @@ webbrowser.open(INDEX_PAGE)
 
 def print_instructions():
     print('')
-    print(('='*55))
+    print('='*55)
     print('      Hit F5 (Refresh) in Browser')
-    print(('='*55))
+    print('='*55)
     print('  hit ESC or <ctrl>C to exit')
     print('  hit "b" to launch webbrowser')
     print('  hit any other key to rebuild HTML')
@@ -98,7 +98,7 @@ def main():
     command = "%s %s"%(TEST_RUNNER, args)
 
     latest_checksum = checksum_directory(TARGET_DIR)
-    print(( "Sphinxy starting with: %s"%(command) ))
+    print( "Sphinxy starting with: %s"%(command) )
     print( command )
     subprocess.call(command.split())
     print_instructions()
@@ -107,7 +107,7 @@ def main():
         while (True):
             checksum = checksum_directory(TARGET_DIR, touch_first=False)
             if checksum != latest_checksum:
-                print(( "Sphinxy detected a change and is rerunning tests with: %s"%(command) ))
+                print( "Sphinxy detected a change and is rerunning tests with: %s"%(command) )
                 latest_checksum = checksum_directory(TARGET_DIR, touch_first=True)
                 subprocess.call(command.split())
                 

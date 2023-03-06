@@ -18,22 +18,22 @@ class Plots_Cache(object):
         self.resultVarL = [] #: list of result var objects (rv) including design control vars
         #  resultVarL includes desVars that are control variables, (minmax or feasible)
                 
-        for key,dv in self.PS.desVarDict.items():
+        for key,dv in list(self.PS.desVarDict.items()):
             if PS.hasMinMaxControlVar(key) or PS.hasFeasibleControlVar(key):
                 # control varaibles in minmax or feasible change like result vars
                 self.resultVarL.append(dv)
             else:
                 self.desVarL.append(dv)
         
-        for key,rv in self.PS.resultVarDict.items():
+        for key,rv in list(self.PS.resultVarDict.items()):
             self.resultVarL.append(rv)
         
-        print '  ----------------------------------- '
+        print('  ----------------------------------- ')
         for dv in self.desVarL:
-            print '  DESIGN===>',dv.name,'in Plots_Cache desVar List'
+            print('  DESIGN===>',dv.name,'in Plots_Cache desVar List')
         for rv in self.resultVarL:
-            print '  RESULT===>',rv.name,'in Plots_Cache resultVar List'
-        print '  ----------------------------------- '
+            print('  RESULT===>',rv.name,'in Plots_Cache resultVar List')
+        print('  ----------------------------------- ')
     
     def saveParasolState(self):
         '''Save design variables values in dictionary, dvSavedD, so the state can
@@ -63,7 +63,7 @@ class Plots_Cache(object):
             dvL.append( dv.val )
         dvTuple = tuple( dvL ) # tuple of design values is index into resultDict
         
-        if self.resultDict.has_key(dvTuple):
+        if dvTuple in self.resultDict:
             # if already in cache, retrieve and place in resultVars "val" attribute
             rvL = self.resultDict[dvTuple]
             for i,rv in enumerate( self.resultVarL ):
@@ -84,10 +84,10 @@ class Plots_Cache(object):
             #print 'E',dvTuple,rvL
                 
         if dump:
-            keyL = self.resultDict.keys()
+            keyL = list(self.resultDict.keys())
             keyL.sort()
             for key in keyL:
-                print key,self.resultDict[key]
+                print(key,self.resultDict[key])
     
     def setUpForFuncCall(self, dvNameL=None, outNameL=None):
         '''set up so that the ParametricSoln model can be called as a simple function
@@ -139,7 +139,7 @@ class Plots_Cache(object):
         if len(self.violationCoordL)==0:
             return [],[]
             
-        jj=range(len(self.violationCoordL[0]))
+        jj=list(range(len(self.violationCoordL[0])))
         
         rl = [[li[j] for li in self.violationCoordL] for j in jj] # a list of lists
         if len(rl)==1:

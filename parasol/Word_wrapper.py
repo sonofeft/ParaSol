@@ -234,7 +234,7 @@ class WordWrap:
             self.styles.append(styleObject.NameLocal)
 
     def addStyledPara(self, text, stylename):
-        if text[-1] <> '\n':
+        if text[-1] != '\n':
             text = text + '\n'
         self.wordSel.InsertAfter(text)
         self.wordSel.Style = stylename
@@ -453,7 +453,7 @@ class WordWrap:
             Image = hw.AddPicture(filename)
         else:
             # AddPicture(FileName, LinkToFile, SaveWithDocument, Range)
-            print "Range provided for image add"
+            print("Range provided for image add")
             Image = hw.AddPicture(filename, False, True, Range)
             
         PageW = self.wordDoc.PageSetup.PageWidth
@@ -522,7 +522,7 @@ if __name__ == "__main__": #Self Test
 #    w.addText('Line 3\n\n')
 #    w.addText('Line 4\n\n')
     
-    from Summary import Summary
+    from .Summary import Summary
     S = Summary( summaryTitle='Summary Title', subTitle='subtitle')
     S.addAssumption( 'Assume this is a test' )
     
@@ -580,7 +580,7 @@ With MyPic
 End With'''
     if 0:
         w.getStyleList()
-        print w.styles
+        print(w.styles)
         
-        keyInp = raw_input(" Hit Key to Close Word")
+        keyInp = input(" Hit Key to Close Word")
         w.abandonWord()

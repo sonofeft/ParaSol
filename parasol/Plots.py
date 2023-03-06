@@ -7,9 +7,9 @@ import time
 #import Image, ImageDraw, ImageFont
 import csv
 import traceback
-from Plots_Cache import Plots_Cache
-from cast import floatDammit, intDammit
-from CarpetPlot import Carpet
+from parasol.Plots_Cache import Plots_Cache
+from parasol.cast import floatDammit, intDammit
+from parasol.CarpetPlot import Carpet
 
 __author__ = "Charlie Taylor (charlietaylor@sourceforge.net)"
 __version__ = "1.0 "
@@ -22,15 +22,15 @@ __Plots_Cache = None # holds cached results for speeding up Plots
 __plotNumber = 0
 
 def putPlotInPPT( PS, filename, title):
-    print 'saving Plot to',os.path.split(PS.pptDocName)[-1] 
+    print('saving Plot to',os.path.split(PS.pptDocName)[-1]) 
     try:
         PS.pptDoc.addImageSlide( imgFile=filename, title=title.replace('\n','\r'))
     except:
-        print "ERROR... FAILED to put plot in PowerPoint file"
-        print traceback.print_exc()
+        print("ERROR... FAILED to put plot in PowerPoint file")
+        print(traceback.print_exc())
 
 def putPlotInWord( PS, filename, *omitList):
-    print 'saving Plot to',os.path.split(PS.wordDocName)[-1] 
+    print('saving Plot to',os.path.split(PS.wordDocName)[-1]) 
     tableStr = [(' ',),(' ',)]
     wordTable1 = PS.wordDoc.addTable( tableStr, Range=PS.wordDoc.selectCharacter(-2) )
     wordTable1.Style = PS.tblstyl
@@ -88,8 +88,8 @@ def makeSensitivityPlot(PS,
             makeHTML=makeHTML, dpi=dpi, linewidth=linewidth, extraFOM=extraFOM, 
             omitViolPts=omitViolPts)
     except:
-        print ' >>> ERROR... could not create SensitivityPlot'
-        print traceback.print_exc()
+        print(' >>> ERROR... could not create SensitivityPlot')
+        print(traceback.print_exc())
 
 '''
 subplots_adjust(*args, **kwargs)
@@ -147,7 +147,7 @@ def _makeSensitivityPlot(PS,
     dvs = '_'.join(desVars)
     filename = os.path.join( PS.outputPath,
                PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_sens_'+figureOfMerit+'_vs_'+dvs+'.png' )
-    print "building %i x %i sensitivity plot %s"%(nrows,ncols, os.path.split(filename)[-1] )
+    print("building %i x %i sensitivity plot %s"%(nrows,ncols, os.path.split(filename)[-1] ))
     
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
     
@@ -170,7 +170,7 @@ def _makeSensitivityPlot(PS,
     excelColL = [] #: used to collect possible Excel output
     excelColExtraL = [] #: list of labels for curves in excel
     for desVar in desVars:
-        print ".",
+        print(".", end=' ')
         subplot(nrows, ncols, Nplot)
         
         dv = PS.desVarDict[desVar]
@@ -239,7 +239,7 @@ def _makeSensitivityPlot(PS,
             if len(xviol)==1:  # plot will BOMB with only 1 entry in list
                 xviol.append( xviol[-1] )
                 yviol.append( yviol[-1] )
-            for viol in vioDict.keys():
+            for viol in list(vioDict.keys()):
                 plot(xviol, yviol, 'ro', mfc='r', label=str(viol), linewidth=0, alpha=0.5)
                 #print "violation = (%s)"%viol
             legend(loc='best')
@@ -276,7 +276,7 @@ def _makeSensitivityPlot(PS,
         # make csv file
         csvfilename = os.path.join( PS.outputPath,
                       PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_sens_'+figureOfMerit+'_vs_'+desVar+'.csv')
-        print "saving data to CSV file",os.path.split(csvfilename)[-1] 
+        print("saving data to CSV file",os.path.split(csvfilename)[-1]) 
         csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
     
         sumry = PS.getDesVarSummary()
@@ -291,29 +291,29 @@ def _makeSensitivityPlot(PS,
 
 
     if ymin>=ymax:
-        print '   >>> ERROR... ymin equals ymax in makeSensitivityPlot'
-        print '   >>> ABANDONING PLOT'
+        print('   >>> ERROR... ymin equals ymax in makeSensitivityPlot')
+        print('   >>> ABANDONING PLOT')
         return
         
     Nplot = 1
     for desVar in desVars:
-        print ".",
+        print(".", end=' ')
         subplot(nrows, ncols, Nplot)
         dv = PS.desVarDict[desVar]
         axis([dv.minVal, dv.maxVal, ymin, ymax])
         Nplot += 1
-    print "."
+    print(".")
     # after all subplots are made, save the file
     try:
         savefig(filename, dpi=dpi)
     except:
-        print traceback.print_exc()
-        print '===> WARNING, could NOT save',filename
+        print(traceback.print_exc())
+        print('===> WARNING, could NOT save',filename)
         close()
         return None
         
-    print "image saved as",filename
-    print "with dpi =",dpi
+    print("image saved as",filename)
+    print("with dpi =",dpi)
     close()
     
     # sign and date the plot
@@ -389,8 +389,8 @@ def make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linewi
     ptData=ptData, ptLegend=ptLegend, logX=logX, logY=logY, xResultVar=xResultVar, 
     colorL=colorL, yLabel=yLabel, legendOnLines=legendOnLines, titleStr=titleStr)
     except:
-        print ' >>> ERROR... could not create 2D Plot'
-        print traceback.print_exc()
+        print(' >>> ERROR... could not create 2D Plot')
+        print(traceback.print_exc())
 
 
 def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linewidth=2,
@@ -437,7 +437,7 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
         
     filename = os.path.join( PS.outputPath,
                PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +'_'+ '_'.join(sysParamList) +'_vs_'+fileNamePart+'.png')
-    print "building 2D plot", os.path.split(filename)[-1] 
+    print("building 2D plot", os.path.split(filename)[-1]) 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
         
     dv = PS.desVarDict[desVar]
@@ -451,7 +451,7 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
         horizontalalignment='left',verticalalignment='top', fontsize=_sigFontSize)
 
     if PS.hasFeasibleControlVar( dv.name ):
-        print "ERROR... can not use feasible design variable %s for plot axis"%dv.name
+        print("ERROR... can not use feasible design variable %s for plot axis"%dv.name)
         return
         
     # don't lose current value
@@ -556,7 +556,7 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
             showLegend = 1
         
     if len( xviol )>0:
-        for viol in vioDict.keys():
+        for viol in list(vioDict.keys()):
             if len(xviol)==1:  # plot will BOMB with only 1 entry in list
                 xviol.append( xviol[-1] )
                 yviol.append( yviol[-1] )
@@ -609,13 +609,13 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
     try:
         savefig(filename, dpi=dpi)
     except:
-        print traceback.print_exc()
-        print '===> WARNING, could NOT save',filename
+        print(traceback.print_exc())
+        print('===> WARNING, could NOT save',filename)
         close()
         return None
         
-    print "image saved as",filename
-    print "with dpi =",dpi
+    print("image saved as",filename)
+    print("with dpi =",dpi)
     close()
     
     #signAndDatePlot(PS, filename)
@@ -628,7 +628,7 @@ def _make2DPlot(PS, sysParam="mass_lbm", desVar="PHe", makeHTML=1, dpi=70, linew
     # make csv file
     csvfilename = os.path.join( PS.outputPath,
                   PS.scriptName[:-3] + '_%i_'%__plotNumber  + '_'+'_'+sysParam+'_vs_'+fileNamePart+'.csv')
-    print "saving data to CSV file",os.path.split(csvfilename)[-1] 
+    print("saving data to CSV file",os.path.split(csvfilename)[-1]) 
     csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
     
     sumry = PS.getDesVarSummary(*[desVar])
@@ -727,8 +727,8 @@ def makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
             interval = interval, maxNumCurves=maxNumCurves, nomNumCurves=nomNumCurves, 
             makeHTML=makeHTML, dpi=dpi, colorMap=colorMap,alpha=alpha, titleStr=titleStr)
     except:
-        print ' >>> ERROR... could not create Contour Plot'
-        print traceback.print_exc()
+        print(' >>> ERROR... could not create Contour Plot')
+        print(traceback.print_exc())
 
 
 def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
@@ -741,18 +741,18 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
     filename = os.path.join( PS.outputPath, 
                 PS.scriptName[:-3] + '_%i_'%__plotNumber  +  '_'+'_'+sysParam+'_vs_'+\
                 desVars[0]+'_'+desVars[1]+'.png')
-    print "building contour plot", os.path.split(filename)[-1] 
+    print("building contour plot", os.path.split(filename)[-1]) 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
         
     dv0 = PS.desVarDict[desVars[0]]
     dv1 = PS.desVarDict[desVars[1]]
     
     if PS.hasFeasibleControlVar( dv0.name ):
-        print "ERROR... can not use feasible design variable %s for plot axis"%dv0.name
+        print("ERROR... can not use feasible design variable %s for plot axis"%dv0.name)
         return
     
     if PS.hasFeasibleControlVar( dv1.name ):
-        print "ERROR... can not use feasible design variable %s for plot axis"%dv1.name
+        print("ERROR... can not use feasible design variable %s for plot axis"%dv1.name)
         return
         
     # don't lose current values
@@ -776,7 +776,7 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
     violy = []
     vioDict = {}
     for j in range(len(p)):
-        print ".",
+        print(".", end=' ')
         for i in range(len(f)):
             PS.setDesignVar( desVars[0], P[i,j] )
             PS.setDesignVar( desVars[1], F[i,j] )
@@ -796,20 +796,20 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
             if val<minval: minval=val
             if val>maxval: maxval=val
 
-    print "."
-    print "minval,maxval=",minval,maxval
+    print(".")
+    print("minval,maxval=",minval,maxval)
 
     if interval<=0.0:
         diff = maxval - minval
         step = diff / nomNumCurves
         interval = float( '%.1g'%step )
-        print "interval=",interval
+        print("interval=",interval)
     
 
     lowVal = interval * ( minval // interval )
     hiVal =  interval * ( maxval // interval )
     deltaVal = hiVal - lowVal
-    print "lowVal, hiVal",lowVal, hiVal
+    print("lowVal, hiVal",lowVal, hiVal)
     
     # if max number of curves is set, use it
     if deltaVal > 0.0:
@@ -831,7 +831,7 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
         plot( violx, violy, 'ro', linewidth=0, markersize=12, alpha=0.5)
         vStr = 'Red Circles : '
         vioList = []
-        for viol in vioDict.keys():
+        for viol in list(vioDict.keys()):
             vioList.append( viol )
         vStr += ', '.join( vioList )
         f.text(0.95, 0.5, vStr, rotation=270, color="r",
@@ -902,12 +902,12 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
     try:
         savefig(filename, dpi=dpi)
     except:
-        print traceback.print_exc()
-        print '===> WARNING, could NOT save',filename
+        print(traceback.print_exc())
+        print('===> WARNING, could NOT save',filename)
         close()
         return None
 
-    print "image saved as",filename
+    print("image saved as",filename)
     close()
     
     #signAndDatePlot(PS, filename)
@@ -1093,8 +1093,8 @@ def make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None,
             yLabelStr=yLabelStr, colorL=colorL,haLabel=haLabel, vaLabel=vaLabel, omitViolPts=omitViolPts,
             reverseLabels=reverseLabels)
     except:
-        print ' >>> ERROR... could not create 2D Parametric Plot'
-        print traceback.print_exc()
+        print(' >>> ERROR... could not create 2D Parametric Plot')
+        print(traceback.print_exc())
 
 def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None,
     paramVar=["MR",1.0,1.5,2.0,2.5]  ,makeHTML=1, dpi=70, linewidth=2, smallLegend=1,
@@ -1122,7 +1122,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
     csvfilename = os.path.join( PS.outputPath,
                   PS.scriptName[:-3] + '_%i_'%__plotNumber  + \
                   '_param_'+sysParam+'_vs_'+fileNamePart+'.csv')
-    print "saving data to CSV file",os.path.split(csvfilename)[-1] 
+    print("saving data to CSV file",os.path.split(csvfilename)[-1]) 
     csvWriter = csv.writer(file(csvfilename, "wb"),  dialect='excel')
     
     sumry = PS.getDesVarSummary(*[desVar, paramVar[0]])
@@ -1137,7 +1137,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
     filename = os.path.join( PS.outputPath,
                PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +\
                '_param_'+sysParam+'_vs_'+fileNamePart+'.png')
-    print "building 2D plot", os.path.split(filename)[-1] 
+    print("building 2D plot", os.path.split(filename)[-1]) 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])
         
     dv = PS.desVarDict[desVar]
@@ -1152,7 +1152,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
         horizontalalignment='left',verticalalignment='top', fontsize=_sigFontSize)
 
     if PS.hasFeasibleControlVar( dv.name ) or PS.hasFeasibleControlVar( pv.name ):
-        print "ERROR... can not use feasible design variable %s or %s for plot axis"%(dv.name,pv.name)
+        print("ERROR... can not use feasible design variable %s or %s for plot axis"%(dv.name,pv.name))
         return
     
     # don't lose current value
@@ -1164,7 +1164,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
     vioDict = {}
     
     for iL,pval in enumerate(paramVar[1:]):
-        print ".",
+        print(".", end=' ')
         PS.setDesignVar( paramVar[0], pval )
 
 
@@ -1194,7 +1194,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
                 if len(vioList)>0: # will be empty if omitViolPts is True
                     for viol in vioList:
                         
-                        if vioDict.has_key( viol ):
+                        if viol in vioDict:
                             vioYD[viol].append( y[-1] )
                             if XusesResVar:
                                 vioXD[viol].append( xResultL[-1] )
@@ -1277,7 +1277,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
         
     if len( vioDict )>0: # will be empty if omitViolPts is true
             
-        NViol = len(vioDict.keys())
+        NViol = len(list(vioDict.keys()))
         for msize,viol in enumerate(vioDict.keys()):
             if len(vioXD[viol])==1:  # plot will BOMB with only 1 entry in list
                 vioXD[viol].append( vioXD[viol][-1] )
@@ -1377,13 +1377,13 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
     try:
         savefig(filename, dpi=dpi)
     except:
-        print traceback.print_exc()
-        print '===> WARNING, could NOT save',filename
+        print(traceback.print_exc())
+        print('===> WARNING, could NOT save',filename)
         close()
         return None
-    print "."
-    print "image saved as",filename
-    print "with dpi =",dpi
+    print(".")
+    print("image saved as",filename)
+    print("with dpi =",dpi)
     close()
     
     # restore original value
@@ -1435,8 +1435,8 @@ def makeCarpetPlot(PS, sysParam="sysMass",
             yLabelStr=yLabelStr, colorL=colorL,haLabel=haLabel, vaLabel=vaLabel,
             angDesVarL=angDesVarL, omitViolPts=omitViolPts)
     except:
-        print ' >>> ERROR... could not create Carpet Plot'
-        print traceback.print_exc()
+        print(' >>> ERROR... could not create Carpet Plot')
+        print(traceback.print_exc())
 
 def _makeCarpetPlot(PS, sysParam="sysMass",
     desVarL=[["PHe",5000.,7000.,9000.,11000.],["SF",1.5,2.0,4.0]], 
@@ -1458,7 +1458,7 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
     dvL = []  # list of design varaible objects
     NumDesVar = len( desVarL )
     if NumDesVar > 2:
-        print 'For NOW, Carpet plots are limited to 2 design varables'
+        print('For NOW, Carpet plots are limited to 2 design varables')
         return
     
     for row in desVarL:
@@ -1473,7 +1473,7 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
     filename = os.path.join( PS.outputPath,
                PS.scriptName[:-3] + '_%i_'%__plotNumber  + logxy +\
                '_carpet_'+sysParam+'_vs_'+fileNamePart+'.png' )
-    print "building Carpet plot", os.path.split(filename)[-1] 
+    print("building Carpet plot", os.path.split(filename)[-1]) 
     htmlPath = './%s/%s'%(PS.scriptName[:-3],os.path.split(filename)[-1])            
         
     # sign chart with name and date
@@ -1486,7 +1486,7 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
 
     for dv in dvL:
         if PS.hasFeasibleControlVar( dv.name ):
-            print "ERROR... can not use feasible design variable %s for CARPET PLOT axis"%(dv.name)
+            print("ERROR... can not use feasible design variable %s for CARPET PLOT axis"%(dv.name))
             return
     
     __Plots_Cache.setUpForFuncCall( dvNameL=dvNameL, outNameL=[xResultVar, sysParam])
@@ -1554,13 +1554,13 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
     try:
         savefig(filename, dpi=dpi)
     except:
-        print traceback.print_exc()
-        print '===> WARNING, could NOT save',filename
+        print(traceback.print_exc())
+        print('===> WARNING, could NOT save',filename)
         close()
         return None
-    print "."
-    print "image saved as",filename
-    print "with dpi =",dpi
+    print(".")
+    print("image saved as",filename)
+    print("with dpi =",dpi)
     close()
     
     # restore original value
@@ -1689,9 +1689,9 @@ def getColorName(i):
     if i < len( stdList ):
         return stdList[i]
     elif i< len(cnames):
-        return cnames[ cnames.keys()[i] ]
+        return cnames[ list(cnames.keys())[i] ]
     else:
-        return cnames[ cnames.keys()[i/len(cnames)] ]
+        return cnames[ list(cnames.keys())[i/len(cnames)] ]
 cnames = {
     'aliceblue'            : '#F0F8FF',
     'antiquewhite'         : '#FAEBD7',

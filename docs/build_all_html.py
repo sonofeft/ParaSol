@@ -16,6 +16,6 @@ for fname in fileL:
     
 command = "sphinx-build -b html -d _build/doctrees  . _build/html"
 
-print command
+print(command)
 subprocess.call(command.split())
     
