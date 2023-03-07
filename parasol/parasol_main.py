@@ -121,8 +121,8 @@ _parser.add_option("-f", "--font", action="store",
 
 try:
     (_userOptions, _userArgs) = _parser.parse_args()
-    print( _userOptions )
-    print( _userArgs )
+    # print( _userOptions )
+    # print( _userArgs )
 except OptionParsingExit:
     sys.exit()
 except:
