@@ -88,3 +88,4 @@ ENV/
 # Rope project settings
 .ropeproject
 UPLOAD_TO_PyPI.BAT
+UPLOAD_TO_TEST_PyPI.BAT

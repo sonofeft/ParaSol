@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parasol"
+version = "0.2.1"
+authors = [
+  { name="Charlie Taylor", email="cet@appliedpython.com" },
+]
+description = "ParaSol (Parametric Solutions) is a python framework in which mathematical models can be investigated parametrically."
+readme = "README.rst"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "http://parasol.readthedocs.org/en/latest/"
+"Bug Tracker" = "https://github.com/sonofeft/ParaSol"
