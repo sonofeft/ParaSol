@@ -15,11 +15,9 @@ This will execute the setup.py file and insure that its pip-specific commands ar
 """
 
 
+
 # Always prefer setuptools over distutils
-try:
-    from setuptools import setup, find_packages
-except ImportError:
-    from distutils.core import setup, find_packages
+from setuptools import setup, find_packages
 
 # To use a consistent encoding
 from codecs import open
@@ -71,8 +69,11 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
 
     platforms = 'any',
