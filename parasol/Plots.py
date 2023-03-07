@@ -142,7 +142,7 @@ def _makeSensitivityPlot(PS,
         wspace = 0.5
         hspace = 0.4
     else :
-        nrows=1 + L/5; ncols=5;
+        nrows=1 + L//5; ncols=5;
         wspace = 0.5
         hspace = 0.4
         
@@ -354,7 +354,7 @@ def _makeSensitivityPlot(PS,
             PS.xlDoc.makeChart( rs, title=figureOfMerit+'_vs_'+desVar, nCurves = 1,
                       sheetName=sheetName,chartName=chartName,  showPoints=1, showLegend=1,
                       yLabel=yLabelStr, xLabel=xLabelStr)
-            for i in range(1, len(rs[0])/2 ):
+            for i in range(1, int(len(rs[0])/2) ):
                 PS.xlDoc.addNewSeriesToCurrentSheetChart( xColumn=1+i*2, yColumn=2+i*2)
                       
             PS.xlDoc.addTextBox(PS.getDesVarShortSummary())
@@ -369,7 +369,7 @@ def _makeSensitivityPlot(PS,
                 PS.xlDoc.makeChart( rs, title=extraFOM+'_vs_'+desVar, nCurves = 1,
                           sheetName=sheetName,chartName=chartName,  showPoints=1, showLegend=1,
                           yLabel=yLabelStr, xLabel=xLabelStr)
-                for i in range(1, len(rs[0])/2 ):
+                for i in range(1, int(len(rs[0])/2) ):
                     PS.xlDoc.addNewSeriesToCurrentSheetChart( xColumn=1+i*2, yColumn=2+i*2)
                           
                 PS.xlDoc.addTextBox(PS.getDesVarShortSummary())
@@ -993,7 +993,7 @@ def _makeContourPlot(PS, sysParam="mass_lbm", desVars=["PHe","Pc"],
                   yLabel=yLabelStr, xLabel=xLabelStr)
                   
 
-        for i in range(1, len(rs[0])/2 ):
+        for i in range(1, int(len(rs[0])/2) ):
             PS.xlDoc.addNewSeriesToCurrentSheetChart( xColumn=1+i*2, yColumn=2+i*2)
 
         PS.xlDoc.setXrange( minVal0,maxVal0 )
@@ -1236,7 +1236,7 @@ def _make2DParametricPlot(PS, sysParam="mass_lbm", desVar="PHe", xResultVar=None
 
         if smallLegend:
             lblStr = ''
-            di = len(x) / 6
+            di = int(len(x) / 6)
             if reverseLabels:
                 iLabel = int((1 + (5-(iL%5))) * di)
             else:
@@ -1644,7 +1644,7 @@ def _makeCarpetPlot(PS, sysParam="sysMass",
         PS.xlDoc.setSeriesColor( NSeries=1, red=127, green=0, blue=127)
         PS.xlDoc.setLineThickness( NSeries=1, thickness=2)
 
-        for i in range(1, len(rs[0])/2 ):
+        for i in range(1, int(len(rs[0])/2) ):
             PS.xlDoc.addNewSeriesToCurrentSheetChart( xColumn=1+i*2, yColumn=2+i*2)
             
             if i >= numA:

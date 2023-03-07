@@ -104,15 +104,20 @@ _parser.add_option("-f", "--font", action="store",
                   help="font in Word (c=Courier, l=Lucida, v=Vera, o=OCR, t=type)")
 
 # each ParametricSoln object has a reference to _userOptions
-(_userOptions, _userArgs) = _parser.parse_args()
+try:
+    (_userOptions, _userArgs) = _parser.parse_args()
+except:
+    # Usually only a problem when running pytest
+    print(traceback.print_exc())
+    (_userOptions, _userArgs) = _parser.parse_args([''])
 
 def win32Warning(appName):
         print('\n=============================================================')
         print("WARNING  WARNING  WARNING  WARNING  WARNING  WARNING  WARNING")
         print('=============================================================\n')
         print("    Could NOT start ",appName)
-        print('    make sure that you have installed "Python for Windows Extension"')
-        print('    from: http://starship.python.net/crew/mhammond/win32/\n')
+        print('    make sure that you have installed Python for Win32 (pywin32) extensions')
+        print('    using: python -m pip install --upgrade pywin32\n')
         print('    for python version:',sys.version.split()[0])
         print('=============================================================')
         input('Hit Return to Continue w/o '+appName)
@@ -319,7 +324,7 @@ class ParametricSoln(object):
             self.xlSheetD = {}  # make sure no sheet name duplicates
             
             self.xlDocName = os.path.join( os.path.dirname( scriptPath ),
-                            scriptName[:-2] + 'xls')
+                            scriptName[:-2] + 'xlsx')
                                 
             self.xlSigText = self.subtaskName + '\rParametricSoln v'+getVersion() +\
                 '\rby: '+self.author +'\r' + time.strftime('%B %d, %Y') +\
