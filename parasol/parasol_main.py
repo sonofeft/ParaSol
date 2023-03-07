@@ -119,16 +119,27 @@ _parser.add_option("-f", "--font", action="store",
                   type="string", dest="fontName", default="c",
                   help="font in Word (c=Courier, l=Lucida, v=Vera, o=OCR, t=type)")
 
-try:
-    (_userOptions, _userArgs) = _parser.parse_args()
-    # print( _userOptions )
-    # print( _userArgs )
-except OptionParsingExit:
-    sys.exit()
-except:
-    print(' === optparse has a problem when running pytest ===' )
-    print(traceback.print_exc())
+# detect if running pytest
+IN_PYTEST = False 
+if os.path.split(sys.argv[0])[-1] == 'pytest':
+    print( '---> pytest sys.argv =', sys.argv)
+    IN_PYTEST = True 
+    print( 'IN_PYTEST =', IN_PYTEST)
+
+# need special handling if running pytest
+if IN_PYTEST:
     (_userOptions, _userArgs) = _parser.parse_args([''])
+else:
+    try:
+        (_userOptions, _userArgs) = _parser.parse_args()
+        # print( _userOptions )
+        # print( _userArgs )
+    except OptionParsingExit:
+        sys.exit()
+    except:
+        print(' === optparse has a problem when running pytest ===' )
+        print(traceback.print_exc())
+        (_userOptions, _userArgs) = _parser.parse_args([''])
 
 
 def win32Warning(appName):
@@ -253,6 +264,9 @@ class ParametricSoln(object):
         self.optimizeHistoryL = [] #: holds any optimization summary info as [title, summStr]
         
         self.NumEvaluations = 0 #: count number of times the evaluate method is called
+        
+        # set flag to indicate that self.close() was not yet called
+        self._close_was_called = 0
         
         # make text output file in case's subdirectory
         scriptName =  os.path.split( sys.argv[0] )[-1]
@@ -418,9 +432,6 @@ class ParametricSoln(object):
                 self.wordDocImagefracPage=0.6
             if self.userOptions.imageSize.lower() == 'vl':
                 self.wordDocImagefracPage=0.8
-        
-        # set flag to indicate that self.close() was not yet called
-        self._close_was_called = 0
         
         if ParametricSoln.__firstParametricSoln==None:
             ParametricSoln.__firstParametricSoln = self

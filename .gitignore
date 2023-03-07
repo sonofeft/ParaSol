@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+parasol/tests/box
+parasol/tests/box*
+parasol/tests/pyt*
+
 # C extensions
 *.so
 
