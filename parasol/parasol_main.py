@@ -11,7 +11,7 @@ Output is generated in plain text, HTML, and native Microsoft Suite files (Excel
 A problem is defined by input and output parameters. 
 Results are presented in a manner that conveys insight into system trends and characteristics. 
 The process of performing an analysis results in an ample assortment of graphs, charts, and images 
-    that display system sensitivities, variations, and characteristics. 
+that display system sensitivities, variations, and characteristics. 
 Barriers to creating these displays have been reduced to single commands in order to facilitate their use.
 
 Parasol has been designed to run under Microsoft Windows. 
@@ -80,7 +80,23 @@ splashText = '------------------------------------------------------------\n'+\
 # ------  check for user options (-w to make word doc, -p to make power point)
 from optparse import OptionParser
 
-_parser = OptionParser()
+class OptionParsingError(RuntimeError):
+    def __init__(self, msg):
+        self.msg = msg
+
+class OptionParsingExit(Exception):
+    def __init__(self, status, msg):
+        self.msg = msg
+        self.status = status
+
+class ModifiedOptionParser(OptionParser):
+    def error(self, msg):
+        raise OptionParsingError(msg)
+
+    def exit(self, status=0, msg=None):
+        raise OptionParsingExit(status, msg)
+    
+_parser = ModifiedOptionParser()
 _parser.add_option("-x", "--excel",
                   action="store_true", dest="excel", default=False,
                   help="create output in a Microsoft Excel document")
@@ -103,13 +119,17 @@ _parser.add_option("-f", "--font", action="store",
                   type="string", dest="fontName", default="c",
                   help="font in Word (c=Courier, l=Lucida, v=Vera, o=OCR, t=type)")
 
-# each ParametricSoln object has a reference to _userOptions
 try:
     (_userOptions, _userArgs) = _parser.parse_args()
+    print( _userOptions )
+    print( _userArgs )
+except OptionParsingExit:
+    sys.exit()
 except:
-    # Usually only a problem when running pytest
+    print(' === optparse has a problem when running pytest ===' )
     print(traceback.print_exc())
     (_userOptions, _userArgs) = _parser.parse_args([''])
+
 
 def win32Warning(appName):
         print('\n=============================================================')

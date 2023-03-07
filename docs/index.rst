@@ -18,6 +18,8 @@ Contents:
    examples
    example2
    example3
+   office
+   functions
    copyright
    authors
    history
