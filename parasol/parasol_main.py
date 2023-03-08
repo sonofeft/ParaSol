@@ -126,8 +126,8 @@ if os.path.split(sys.argv[0])[-1] == 'pytest':
     IN_PYTEST = True 
     print( 'IN_PYTEST =', IN_PYTEST)
 
-# need special handling if running pytest
-if IN_PYTEST:
+# need special handling if running pytest or on ReadTheDocs
+if IN_PYTEST or 'READTHEDOCS' in os.environ:
     (_userOptions, _userArgs) = _parser.parse_args([''])
 else:
     try:
