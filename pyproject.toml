@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "parasol"
-version = "0.2.1"
+version = "0.2.2"
 authors = [
   { name="Charlie Taylor", email="cet@appliedpython.com" },
 ]
